@@ -1,20 +1,31 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
+import { Provider as PaperProvider } from "react-native-paper";
+import { setCustomText } from "react-native-global-props";
+import { theme } from "./src/theme/theme";
+import { customTextProps } from "./src/theme/customProps";
+import LoginView from "./src/views/LoginView/LoginView";
 
-export default function App() {
+function App() {
+  setCustomText(customTextProps);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider theme={theme}>
+      <View style={styles.container}>
+        <View style={{ height: 40 }}>
+          <StatusBar style="auto" />
+        </View>
+        <LoginView />
+      </View>
+    </PaperProvider>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: theme.colors.background,
   },
 });
+
+export default App;
