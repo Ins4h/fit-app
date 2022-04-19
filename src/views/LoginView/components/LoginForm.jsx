@@ -1,15 +1,19 @@
 import { StyleSheet, View } from "react-native";
 import { Formik } from "formik";
+import { useNavigation } from "@react-navigation/native";
 import FitButton from "../../../components/FitButton";
 import FitInput from "../../../components/FitInput";
 import Separator from "./Separator";
 
 const LoginForm = () => {
+  const navigation = useNavigation();
+
   return (
     <Formik
       initialValues={{ login: "", password: "" }}
       onSubmit={(values) => {
         // TODO
+        navigation.navigate("Dashboard");
       }}
     >
       {({ handleChange, handleSubmit, handleBlur, values }) => (
@@ -41,6 +45,7 @@ const LoginForm = () => {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     marginTop: 50,
   },
 

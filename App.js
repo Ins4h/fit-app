@@ -1,31 +1,47 @@
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, View, KeyboardAvoidingView } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { setCustomText } from "react-native-global-props";
+import { NavigationContainer, StackActions } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { theme } from "./src/theme/theme";
 import { customTextProps } from "./src/theme/customProps";
+import DashboardView from "./src/views/DashboardView/DashboardView";
 import LoginView from "./src/views/LoginView/LoginView";
+import SignUpView from "./src/views/SignUpView/SignUpView";
+import Header from "./src/components/Header";
+
+const Stack = createNativeStackNavigator();
+
+const navigatorScreenOptions = {
+  header: (props) => (
+    <Header {...props}>{props.options.title || props.route.name}</Header>
+  ),
+};
 
 function App() {
   setCustomText(customTextProps);
 
   return (
     <PaperProvider theme={theme}>
-      <View style={styles.container}>
-        <View style={{ height: 40 }}>
-          <StatusBar style="auto" />
-        </View>
-        <LoginView />
-      </View>
+      <StatusBar style="auto" />
+      <NavigationContainer>
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={navigatorScreenOptions}
+        >
+          <Stack.Screen name="Dashboard" component={DashboardView} />
+          <Stack.Screen
+            name="Login"
+            component={LoginView}
+            options={{
+              title: "FitApp",
+            }}
+          />
+          <Stack.Screen name="SignUp" component={SignUpView} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </PaperProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: theme.colors.background,
-  },
-});
 
 export default App;
