@@ -1,6 +1,7 @@
 import { StyleSheet, View } from "react-native";
 import { Formik } from "formik";
 import { useNavigation } from "@react-navigation/native";
+import { auth } from "../../../../firebase.config";
 import FitButton from "../../../components/FitButton";
 import FitInput from "../../../components/FitInput";
 import Separator from "./Separator";
@@ -8,24 +9,38 @@ import Separator from "./Separator";
 const LoginForm = () => {
   const navigation = useNavigation();
 
+  const handleSignInWithEmailAndPassword = ({ email, password }) => {
+    auth
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        navigation.navigate("Dashboard");
+      })
+      .catch((error) => console.log(error));
+  };
+
   return (
     <Formik
-      initialValues={{ login: "", password: "" }}
+      initialValues={{ email: "", password: "" }}
       onSubmit={(values) => {
-        // TODO
-        navigation.navigate("Dashboard");
+        handleSignInWithEmailAndPassword(values);
       }}
     >
       {({ handleChange, handleSubmit, handleBlur, values }) => (
         <View style={styles.container}>
-          <FitButton onPress={() => {}}>log in with google</FitButton>
+          <FitButton
+            onPress={() => {
+              navigation.navigate("Dashboard");
+            }}
+          >
+            log in with google
+          </FitButton>
           <Separator style={styles.spacing} />
           <FitInput
             style={styles.spacing}
-            label="Login"
-            onChangeText={handleChange("login")}
-            onBlur={handleBlur("login")}
-            value={values.login}
+            label="E-mail"
+            onChangeText={handleChange("email")}
+            onBlur={handleBlur("email")}
+            value={values.email}
           />
           <FitInput
             style={styles.spacing}
@@ -33,6 +48,7 @@ const LoginForm = () => {
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
             value={values.password}
+            secureTextEntry
           />
           <FitButton style={{ marginTop: 32 }} onPress={handleSubmit}>
             Log in

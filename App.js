@@ -8,8 +8,8 @@ import { customTextProps } from "./src/theme/customProps";
 import DashboardView from "./src/views/DashboardView/DashboardView";
 import LoginView from "./src/views/LoginView/LoginView";
 import SignUpView from "./src/views/SignUpView/SignUpView";
+import AccountSetupView from "./src/views/AccountSetupView/AccountSetupView";
 import Header from "./src/components/Header";
-import RegistrationView from "./src/views/RegistrationView/RegistrationView";
 
 const Stack = createNativeStackNavigator();
 
@@ -38,13 +38,14 @@ function App() {
               title: "FitApp",
             }}
           />
-          <Stack.Screen 
-            name="SignUp" 
+          <Stack.Screen name="AccountSetup" component={AccountSetupView} />
+          <Stack.Screen
+            name="SignUp"
             component={SignUpView}
             options={{
-              title: "Create an account"
+              title: "Create an account",
             }}
-            />
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
