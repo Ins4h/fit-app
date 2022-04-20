@@ -38,8 +38,14 @@ function App() {
               title: "FitApp",
             }}
           />
-          <Stack.Screen name="SignUp" component={SignUpView} />
           <Stack.Screen name="AccountSetup" component={AccountSetupView} />
+          <Stack.Screen
+            name="SignUp"
+            component={SignUpView}
+            options={{
+              title: "Create an account",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
