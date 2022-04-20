@@ -8,6 +8,7 @@ import { customTextProps } from "./src/theme/customProps";
 import DashboardView from "./src/views/DashboardView/DashboardView";
 import LoginView from "./src/views/LoginView/LoginView";
 import SignUpView from "./src/views/SignUpView/SignUpView";
+import AccountSetupView from "./src/views/AccountSetupView/AccountSetupView";
 import Header from "./src/components/Header";
 
 const Stack = createNativeStackNavigator();
@@ -38,6 +39,7 @@ function App() {
             }}
           />
           <Stack.Screen name="SignUp" component={SignUpView} />
+          <Stack.Screen name="AccountSetup" component={AccountSetupView} />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
