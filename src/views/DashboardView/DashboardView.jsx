@@ -1,20 +1,36 @@
 import { View, Text, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { withTheme } from "react-native-paper";
+import { auth } from "../../../firebase.config";
+import FitButton from "../../components/FitButton";
 
-const DashboardView = () => {
+const DashboardView = ({
+  theme: {
+    colors: { background },
+  },
+}) => {
   const navigation = useNavigation();
+  const handleSignOut = () => {
+    auth
+      .signOut()
+      .then(() => navigation.navigate("Login"))
+      .catch((error) => alert(error.message));
+  };
 
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View
+      style={{
+        flex: 1,
+        alignItems: "center",
+        justifyContent: "center",
+        backgroundColor: background,
+      }}
+    >
       <Text>Dashboard</Text>
-      <Button
-        title="Back to login"
-        onPress={() => {
-          navigation.navigate("Login");
-        }}
-      />
+      <Text>email: {auth.currentUser?.email || "NOT LOGGED IN"}</Text>
+      <FitButton onPress={handleSignOut}>SignOut</FitButton>
     </View>
   );
 };
 
-export default DashboardView;
+export default withTheme(DashboardView);

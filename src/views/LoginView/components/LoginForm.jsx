@@ -9,25 +9,31 @@ import Separator from "./Separator";
 const LoginForm = () => {
   const navigation = useNavigation();
 
-  const handleSignUp = ({ email, password }) => {
+  const handleSignInWithEmailAndPassword = ({ email, password }) => {
     auth
-      .createUserWithEmailAndPassword(email, password)
-      .then(() => navigation.navigate("AccountSetup"))
-      .catch((error) => {
-        console.error(error);
-      });
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        navigation.navigate("Dashboard");
+      })
+      .catch((error) => console.log(error));
   };
 
   return (
     <Formik
       initialValues={{ email: "", password: "" }}
       onSubmit={(values) => {
-        handleSignUp(values);
+        handleSignInWithEmailAndPassword(values);
       }}
     >
       {({ handleChange, handleSubmit, handleBlur, values }) => (
         <View style={styles.container}>
-          <FitButton onPress={() => {}}>log in with google</FitButton>
+          <FitButton
+            onPress={() => {
+              navigation.navigate("Dashboard");
+            }}
+          >
+            log in with google
+          </FitButton>
           <Separator style={styles.spacing} />
           <FitInput
             style={styles.spacing}
@@ -42,6 +48,7 @@ const LoginForm = () => {
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
             value={values.password}
+            secureTextEntry
           />
           <FitButton style={{ marginTop: 32 }} onPress={handleSubmit}>
             Log in
