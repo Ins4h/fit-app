@@ -1,5 +1,5 @@
 import { View, Text } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, StackActions } from "@react-navigation/native";
 import FitButton from "../../components/FitButton";
 
 const AccountSetupView = () => {
@@ -7,7 +7,9 @@ const AccountSetupView = () => {
   return (
     <View>
       <Text>Setup your account</Text>
-      <FitButton onPress={() => navigation.navigate("Dashboard")}>
+      <FitButton
+        onPress={() => navigation.dispatch(StackActions.replace("Dashboard"))}
+      >
         Go to Dashboard
       </FitButton>
     </View>

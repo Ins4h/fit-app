@@ -1,6 +1,6 @@
 import { StyleSheet, View } from "react-native";
 import { Formik } from "formik";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, StackActions } from "@react-navigation/native";
 import { auth } from "../../../../firebase.config";
 import FitButton from "../../../components/FitButton";
 import FitInput from "../../../components/FitInput";
@@ -13,7 +13,7 @@ const LoginForm = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        navigation.navigate("Dashboard");
+        navigation.dispatch(StackActions.replace("Dashboard"));
       })
       .catch((error) => console.log(error));
   };
@@ -29,7 +29,7 @@ const LoginForm = () => {
         <View style={styles.container}>
           <FitButton
             onPress={() => {
-              navigation.navigate("Dashboard");
+              navigation.dispatch(StackActions.replace("Dashboard"));
             }}
           >
             log in with google
