@@ -3,8 +3,8 @@ import { LinearGradient } from "expo-linear-gradient";
 import { withTheme } from "react-native-paper";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 
-const Header = ({ children, navigation, theme: { colors } }) => {
-  const canGoBack = navigation.canGoBack();
+const Header = ({ children, navigation, options, theme: { colors } }) => {
+  const canGoBack = navigation.canGoBack() && !options.hideBackButton;
 
   return (
     <LinearGradient colors={colors.primary} style={[styles.container]}>

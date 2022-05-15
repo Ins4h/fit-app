@@ -32,6 +32,9 @@ const DashboardView = ({
       }}
     >
       <Text>Dashboard</Text>
+      <FitButton onPress={() => navigation.navigate("StartWorkout")}>
+        Go next
+      </FitButton>
       <Text>email: {auth.currentUser?.email || "NOT LOGGED IN"}</Text>
       <FitButton onPress={handleSignOut}>SignOut</FitButton>
     </View>

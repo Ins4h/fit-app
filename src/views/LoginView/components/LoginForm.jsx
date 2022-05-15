@@ -29,7 +29,7 @@ const LoginForm = () => {
         <View style={styles.container}>
           <FitButton
             onPress={() => {
-              navigation.dispatch(StackActions.replace("Dashboard"));
+              navigation.dispatch(StackActions.replace("TabNavigator"));
             }}
           >
             log in with google
