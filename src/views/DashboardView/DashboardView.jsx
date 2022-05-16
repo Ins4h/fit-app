@@ -1,4 +1,4 @@
-import { View, Text, Button } from "react-native";
+import { View, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import { auth } from "../../../firebase.config";
@@ -13,7 +13,12 @@ const DashboardView = ({
   const handleSignOut = () => {
     auth
       .signOut()
-      .then(() => navigation.navigate("Login"))
+      .then(() =>
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "Login" }],
+        })
+      )
       .catch((error) => alert(error.message));
   };
 
@@ -27,6 +32,9 @@ const DashboardView = ({
       }}
     >
       <Text>Dashboard</Text>
+      <FitButton onPress={() => navigation.navigate("StartWorkout")}>
+        Go next
+      </FitButton>
       <Text>email: {auth.currentUser?.email || "NOT LOGGED IN"}</Text>
       <FitButton onPress={handleSignOut}>SignOut</FitButton>
     </View>

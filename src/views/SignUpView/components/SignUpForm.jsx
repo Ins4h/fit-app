@@ -13,7 +13,12 @@ const SignUpForm = () => {
   const handleSignUp = (email, password) => {
     auth
       .createUserWithEmailAndPassword(email, password)
-      .then(() => navigation.navigate("AccountSetup"))
+      .then(() =>
+        navigation.reset({
+          index: 0,
+          routes: [{ name: "AccountSetup" }],
+        })
+      )
       .catch((error) => {
         console.error(error);
       });
