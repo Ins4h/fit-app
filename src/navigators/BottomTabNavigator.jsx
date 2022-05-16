@@ -1,7 +1,6 @@
 import { createMaterialBottomTabNavigator } from "@react-navigation/material-bottom-tabs";
 import DashboardStack from "../views/DashboardView/DashboardStack";
 import WorkoutPlanStack from "../views/WorkoutPlanView/WorkoutPlanStack";
-import FontAwesome from "@expo/vector-icons/FontAwesome";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
 const Tab = createMaterialBottomTabNavigator();
