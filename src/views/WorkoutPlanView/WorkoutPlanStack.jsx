@@ -2,7 +2,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { View } from "react-native";
 import Header from "../../components/Header";
 import WorkoutPlanView from "./WorkoutPlanView";
-import Test from "./Test";
+import WorkoutPresetView from "../WorkoutPresetView/WorkoutPresetView";
 
 const Stack = createNativeStackNavigator();
 
@@ -24,9 +24,10 @@ const WorkoutPlanStack = () => {
           component={WorkoutPlanView}
           options={{
             hideBackButton: true,
+            title: "Workout Planner",
           }}
         />
-        <Stack.Screen name="Test" component={Test} />
+        <Stack.Screen name="WorkoutPreset" component={WorkoutPresetView} />
       </Stack.Navigator>
     </View>
   );

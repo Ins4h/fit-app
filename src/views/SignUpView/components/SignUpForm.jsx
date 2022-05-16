@@ -38,14 +38,12 @@ const SignUpForm = () => {
       {({ handleChange, handleSubmit, handleBlur, values }) => (
         <View style={styles.container}>
           <FitInput
-            style={styles.spacing}
             label="E-mail"
             onChangeText={handleChange("email")}
             onBlur={handleBlur("email")}
             value={values.email}
           />
           <FitInput
-            style={styles.spacing}
             label="Password"
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
@@ -55,7 +53,6 @@ const SignUpForm = () => {
             error={passwordNotMatch}
           />
           <FitInput
-            style={styles.spacing}
             label="Confirm Password"
             onChangeText={handleChange("confirmPassword")}
             onBlur={handleBlur("confirmPassword")}
@@ -77,10 +74,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     marginTop: 50,
-  },
-
-  spacing: {
-    marginTop: 20,
   },
 });
 

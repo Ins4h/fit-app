@@ -36,14 +36,12 @@ const LoginForm = () => {
           </FitButton>
           <Separator style={styles.spacing} />
           <FitInput
-            style={styles.spacing}
             label="E-mail"
             onChangeText={handleChange("email")}
             onBlur={handleBlur("email")}
             value={values.email}
           />
           <FitInput
-            style={styles.spacing}
             label="Password"
             onChangeText={handleChange("password")}
             onBlur={handleBlur("password")}
