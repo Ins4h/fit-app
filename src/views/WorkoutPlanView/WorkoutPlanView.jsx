@@ -21,6 +21,7 @@ const WorkoutPlanView = ({
     >
       <Text>WorkoutView</Text>
       <FitButton onPress={() => navigation.navigate("Test")}>Go test</FitButton>
+      <FitButton onPress={() => navigation.navigate("EditWorkout")}>Edit Workout</FitButton>
     </View>
   );
 };

@@ -3,6 +3,7 @@ import { View } from "react-native";
 import Header from "../../components/Header";
 import WorkoutPlanView from "./WorkoutPlanView";
 import Test from "./Test";
+import EditWorkoutView from "../EditWorkoutView/EditWorkoutView";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +28,7 @@ const WorkoutPlanStack = () => {
           }}
         />
         <Stack.Screen name="Test" component={Test} />
+        <Stack.Screen name="EditWorkout" component={EditWorkoutView} />
       </Stack.Navigator>
     </View>
   );
