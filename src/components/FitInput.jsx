@@ -4,7 +4,7 @@ import { TextInput, withTheme } from "react-native-paper";
 const FitInput = ({ theme: { colors }, style, filled, ...rest }) => {
   return (
     <TextInput
-      style={styles(colors, filled).input}
+      style={[styles(colors, filled).input, style]}
       underlineColor={colors.secondaryGray}
       selectionColor={colors.secondaryGray}
       outlineColor={colors.gray}
