@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigation } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
-import { View, StyleSheet, FlatList, Text } from "react-native";
+import { View, StyleSheet, ScrollView, Text } from "react-native";
 import FitInput from "../../components/FitInput";
 import FitButton from "../../components/FitButton";
 import ExerciseItem from "./components/ExerciseItem";
 import FitDateTimePicker from '../../components/FitDateTimePicker';
 import FitDropDown from '../../components/FitDropDown';
+import uuid from "react-native-uuid";
 
 const EditWorkoutView = ({ theme: { colors: { background } } }) => {
   const navigation = useNavigation()
@@ -22,16 +23,6 @@ const EditWorkoutView = ({ theme: { colors: { background } } }) => {
     setStartTime(time)
   }
 
-  const renderItem = ({ item }) => (
-    <ExerciseItem
-      name={item.name}
-      weights={item.weights}
-      sets={item.sets}
-      reps={item.reps}
-      breaks={item.breaks}
-    />
-  )
-
   const chooseExercises = () => {
     // TODO
   }
@@ -40,67 +31,91 @@ const EditWorkoutView = ({ theme: { colors: { background } } }) => {
     // TODO
   }
 
+  const saveWorkout = () => {
+    const workout = {
+      id: uuid.v4(),
+      name: title,
+      day: selectedDay,
+      time: startTime,
+      breaks: breaks,
+      exercises: exerciseItems,
+    }
+    navigation.navigate("WorkoutPlan", { workoutDay: workout })
+  }
+
   return (
-    <View style={styles(background).container}>
-      <FitInput
-        filled={true}
-        label="Title"
-        onChangeText={(text) => setTitle(text)}
-        value={title}
-      />
-      <View style={{ height: 16 }} />
-      <FitDropDown label={'Select day'} data={days} onSelect={(day) => setSelectedDay(day)} />
-      <View style={{ height: 16 }} />
-      <FitInput
-        filled={true}
-        label="Break beetween exercises"
-        keyboardType='numeric'
-        onChangeText={(text) => setBreaks(text.replace(/[^0-9]/g, ''))}
-        value={breaks}
-        maxLength={3}
-      />
-      <View style={{ height: 16 }} />
-      <FitInput
-        filled={true}
-        label="Start time"
-        onFocus={() => setShowDateTimePicker(true)}
-        value={startTime}
-        showSoftInputOnFocus={false}
-      />
-      {showDateTimePicker && <FitDateTimePicker
-        type={'time'}
-        onPick={(time) => onStartTimePick(time)}
-      />}
-      <View style={styles().buttonsRow}>
-        <FitButton
-          style={{ flex: 1, marginRight: 16 }}
-          onPress={chooseExercises}
+    <ScrollView>
+      <View style={styles(background).container}>
+        <FitDropDown label={'Select day'} data={days} onSelect={(day) => setSelectedDay(day)} />
+        <View style={{ height: 16 }} />
+        <FitInput
+          label="Title"
+          onChangeText={(text) => setTitle(text)}
+          value={title}
+          mode="outlined"
+        />
+        <View style={{ height: 16 }} />
+        <FitInput
+          label="Break beetween exercises"
+          keyboardType='numeric'
+          onChangeText={(text) => setBreaks(text.replace(/[^0-9]/g, ''))}
+          value={breaks}
+          maxLength={3}
+          mode="outlined"
+        />
+        <View style={{ height: 16 }} />
+        <FitInput
+          label="Start time"
+          onFocus={() => setShowDateTimePicker(true)}
+          value={startTime}
+          showSoftInputOnFocus={false}
+          mode="outlined"
+        />
+        {showDateTimePicker && <FitDateTimePicker
+          type={'time'}
+          onPick={(time) => onStartTimePick(time)}
+        />}
+        <View style={styles().buttonsRow}>
+          <FitButton
+            style={{ flex: 1, marginRight: 16 }}
+            onPress={chooseExercises}
+          >
+            choose exercises
+          </FitButton>
+          <FitButton
+            style={{ flex: 1 }}
+            onPress={addYourExercises}
+          >
+            add your exercises
+          </FitButton>
+        </View>
+        <View
+          style={styles().listDescription}
         >
-          choose exercises
-        </FitButton>
+          <Text style={styles().listDescriptionName}>Name</Text>
+          <Text style={styles().listDescriptionItem}>Weights</Text>
+          <Text style={styles().listDescriptionItem}>Sets</Text>
+          <Text style={styles().listDescriptionItem}>Reps</Text>
+          <Text style={styles().listDescriptionItem}>Breaks</Text>
+        </View>
+        {exerciseItems.map((item) => (
+          <ExerciseItem
+            name={item.name}
+            weights={item.weights}
+            sets={item.sets}
+            reps={item.reps}
+            breaks={item.breaks}
+          />
+        ))}
         <FitButton
-          style={{ flex: 1 }}
-          onPress={addYourExercises}
+          style={{ marginTop: 16 }}
+          size={"large"}
+          onPress={saveWorkout}
         >
-          add your exercises
+          save workout
         </FitButton>
       </View>
-      <View
-        style={styles().listDescription}
-      >
-        <Text style={styles().listDescriptionName}>Name</Text>
-        <Text style={styles().listDescriptionItem}>Weights</Text>
-        <Text style={styles().listDescriptionItem}>Sets</Text>
-        <Text style={styles().listDescriptionItem}>Reps</Text>
-        <Text style={styles().listDescriptionItem}>Breaks</Text>
-      </View>
-      <FlatList
-        data={exerciseItems}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-        style={styles().exerciseItemList}
-      />
-    </View>
+    </ScrollView>
   )
 }
 

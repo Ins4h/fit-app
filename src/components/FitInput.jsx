@@ -1,10 +1,10 @@
 import { StyleSheet } from "react-native";
 import { TextInput, withTheme } from "react-native-paper";
 
-const FitInput = ({ theme: { colors }, style, filled, ...rest }) => {
+const FitInput = ({ theme: { colors }, style, ...rest }) => {
   return (
     <TextInput
-      style={[styles(colors, filled).input, style]}
+      style={[styles(colors.background).input, style]}
       underlineColor={colors.secondaryGray}
       selectionColor={colors.secondaryGray}
       outlineColor={colors.gray}
@@ -20,10 +20,10 @@ const FitInput = ({ theme: { colors }, style, filled, ...rest }) => {
   );
 };
 
-const styles = ({ background, secondary }, isFilled) =>
+const styles = (background) =>
   StyleSheet.create({
     input: {
-      backgroundColor: isFilled ? secondary : background,
+      backgroundColor: background,
     },
   });
 

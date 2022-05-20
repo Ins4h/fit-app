@@ -1,55 +1,14 @@
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import FitButton from "../../components/FitButton";
 import FitInput from "../../components/FitInput";
 import WorkoutDay from "./components/WorkoutDay";
+import uuid from "react-native-uuid";
 
-//formaty do dopracowania
-
-const mockData = [
-  {
-    id: 1,
-    name: "Klata, plecy, barki",
-    day: "Monday",
-    time: "05:30pm",
-    exercises: [],
-  },
-  {
-    id: 2,
-    name: "Potężne nogi",
-    day: "Wednesday",
-    time: "05:30pm",
-    exercises: [],
-  },
-  {
-    id: 3,
-    name: "Łapy",
-    day: "Friday",
-    time: "05:30pm",
-    exercises: [],
-  },
-  {
-    id: 4,
-    name: "Klata, plecy, barki",
-    day: "Monday",
-    time: "05:30pm",
-    exercises: [],
-  },
-  {
-    id: 5,
-    name: "Potężne nogi",
-    day: "Wednesday",
-    time: "05:30pm",
-    exercises: [],
-  },
-  {
-    id: 6,
-    name: "Łapy",
-    day: "Friday",
-    time: "05:30pm",
-    exercises: [],
-  },
+const mockWorkoutDays = [
+  { id: uuid.v4(), name: "Klata, plecy, barki", day: "Monday", time: "16:30", breaks: 60, exercises: [] },
 ];
 
 const WorkoutPlanView = ({
@@ -58,9 +17,13 @@ const WorkoutPlanView = ({
   },
 }) => {
   const navigation = useNavigation();
+  const route = useRoute();
 
-  //TODO: inputs states or use formik
-  //get real data
+  const [workoutDays, setWorkoutDays] = useState([...mockWorkoutDays])
+
+  useEffect(() => {
+    setWorkoutDays([...workoutDays, route.params.workoutDay])
+  }, [route])
 
   return (
     <View style={styles(background).wrapper}>
@@ -92,7 +55,7 @@ const WorkoutPlanView = ({
         </View>
         <View>
           <Text style={[styles().spacing, styles().title]}>Workout Plan</Text>
-          {mockData.map((item) => (
+          {workoutDays.map((item) => (
             <WorkoutDay
               name={item.name}
               day={item.day}
@@ -104,7 +67,7 @@ const WorkoutPlanView = ({
         <FitButton
           style={styles().addButton}
           size="medium"
-          onPress={() => alert("TODO")}
+          onPress={() => { navigation.navigate("EditWorkout") }}
         >
           ADD
         </FitButton>

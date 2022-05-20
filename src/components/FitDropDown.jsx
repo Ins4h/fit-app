@@ -12,7 +12,7 @@ const FitDropDown = ({ label, data, onSelect }) => {
   };
 
   const openDropdown = () => {
-    DropdownButton.current.measure((_fx, _fy, _w, h, _px, py) => {
+    DropdownButton.current.measure((_fx, _fy, _w, _h, _px, py) => {
       setDropdownTop(py);
     });
     setVisible(true);
@@ -59,7 +59,6 @@ const FitDropDown = ({ label, data, onSelect }) => {
       <Text style={styles.buttonText}>
         {(selected && selected.label) || label}
       </Text>
-      {/* <Icon style={styles.icon} type="font-awesome" name="chevron-down" /> */}
     </TouchableOpacity>
   );
 };
@@ -87,8 +86,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
   item: {
-    paddingHorizontal: 8,
-    paddingVertical: 8,
+    padding: 8,
     borderTopWidth: 1,
     borderColor: '#454545',
     backgroundColor: '#2C2C2C',
