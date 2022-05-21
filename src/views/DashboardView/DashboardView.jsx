@@ -28,7 +28,7 @@ const DashboardView = ({
       style={{
         flex: 1,
         alignItems: "center",
-        justifyContent: "flex-start",
+        justifyContent: "center",
         backgroundColor: background,
       }}
     >
