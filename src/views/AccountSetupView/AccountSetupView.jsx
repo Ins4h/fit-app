@@ -1,4 +1,4 @@
-import { View, Text, SafeAreaView, StyleSheet} from "react-native";
+import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 import { useNavigation, StackActions } from "@react-navigation/native";
 import FitButton from "../../components/FitButton";
 import ToggleButton from "./components/ToggleButton";
@@ -7,9 +7,6 @@ import ToggleButtonGoal from "./components/ToggleButtonGoal";
 import FitInput from "../../components/FitInput";
 import { withTheme } from "react-native-paper";
 
-
-
-
 const AccountSetupView = ({
   theme: {
     colors: { background },
@@ -17,43 +14,42 @@ const AccountSetupView = ({
 }) => {
   const navigation = useNavigation();
 
-
   return (
     <SafeAreaView style={styles(background).wrapper}>
-    <View style={styles().container}>
-      <Text style={{textAlign: 'center', marginTop: 50, marginBottom: 10}}>Gender</Text>
-      <ToggleButton>
+      <View style={styles().container}>
+        <Text style={{ textAlign: 'center', marginTop: 50, marginBottom: 10 }}>Gender</Text>
+        <ToggleButton>
 
-      </ToggleButton>
+        </ToggleButton>
 
-      <FitInput style = {{marginTop: 0, marginBottom: 15}}
-            label="Weight [kg]"
-            //onChangeText={handleChange("email")}
-            //onBlur={handleBlur("email")}
-            //value={values.email}
-          />
-
-      <FitInput
-        label="Height [cm]"
+        <FitInput style={{ marginTop: 0, marginBottom: 15 }}
+          label="Weight [kg]"
         //onChangeText={handleChange("email")}
         //onBlur={handleBlur("email")}
         //value={values.email}
-      />
+        />
 
-      <Text style={{marginTop: 20, marginBottom: 15}}>Current workout level</Text>
-      <ToggleButtonLevel></ToggleButtonLevel>
-      
+        <FitInput
+          label="Height [cm]"
+        //onChangeText={handleChange("email")}
+        //onBlur={handleBlur("email")}
+        //value={values.email}
+        />
 
-      <Text style={{marginTop: 20, marginBottom: 15}}>Top goal</Text>
-      <ToggleButtonGoal></ToggleButtonGoal>
+        <Text style={{ marginTop: 20, marginBottom: 15 }}>Current workout level</Text>
+        <ToggleButtonLevel></ToggleButtonLevel>
 
 
-      <FitButton style = {{marginTop: 30}}
-        onPress={() => navigation.dispatch(StackActions.replace("Dashboard"))}
-      >
-        Next
-      </FitButton>
-    </View>
+        <Text style={{ marginTop: 20, marginBottom: 15 }}>Top goal</Text>
+        <ToggleButtonGoal></ToggleButtonGoal>
+
+
+        <FitButton style={{ marginTop: 30 }}
+          onPress={() => navigation.dispatch(StackActions.replace("Dashboard"))}
+        >
+          Next
+        </FitButton>
+      </View>
     </SafeAreaView>
   );
 };

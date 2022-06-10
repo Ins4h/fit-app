@@ -11,8 +11,7 @@ const WorkoutPresetView = ({ theme: { colors } }) => {
         backgroundColor: colors.background,
       }}
     >
-      <Text>WORKOUT PRESET VIEW</Text>
-      <Text>TODO</Text>
+      <Text>Available soon!</Text>
     </View>
   );
 };
