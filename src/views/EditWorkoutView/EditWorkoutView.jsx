@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { useNavigation } from "@react-navigation/native";
+import React, { useState, useEffect } from 'react';
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import { View, StyleSheet, ScrollView, Text } from "react-native";
 import FitInput from "../../components/FitInput";
@@ -11,12 +11,14 @@ import uuid from "react-native-uuid";
 
 const EditWorkoutView = ({ theme: { colors: { background } } }) => {
   const navigation = useNavigation()
+  const route = useRoute();
 
   const [title, setTitle] = useState()
   const [breaks, setBreaks] = useState()
   const [startTime, setStartTime] = useState()
   const [showDateTimePicker, setShowDateTimePicker] = useState(false)
   const [selectedDay, setSelectedDay] = useState()
+  const [exercises, setExercises] = useState([...mockExerciseItems])
 
   const onStartTimePick = (time) => {
     setShowDateTimePicker(false)
@@ -24,11 +26,11 @@ const EditWorkoutView = ({ theme: { colors: { background } } }) => {
   }
 
   const chooseExercises = () => {
-    // TODO
+    navigation.navigate("ListOfExercises")
   }
 
   const addYourExercises = () => {
-    // TODO
+    navigation.navigate("EditExercise")
   }
 
   const saveWorkout = () => {
@@ -38,10 +40,14 @@ const EditWorkoutView = ({ theme: { colors: { background } } }) => {
       day: selectedDay,
       time: startTime,
       breaks: breaks,
-      exercises: exerciseItems,
+      exercises: exercises,
     }
     navigation.navigate("WorkoutPlan", { workoutDay: workout })
   }
+
+  useEffect(() => {
+    setExercises([...exercises, route.params.exercise])
+  }, [route])
 
   return (
     <ScrollView>
@@ -80,13 +86,13 @@ const EditWorkoutView = ({ theme: { colors: { background } } }) => {
             style={{ flex: 1, marginRight: 16 }}
             onPress={chooseExercises}
           >
-            choose exercises
+            CHOOSE
           </FitButton>
           <FitButton
             style={{ flex: 1 }}
             onPress={addYourExercises}
           >
-            add your exercises
+            ADD
           </FitButton>
         </View>
         <View
@@ -98,8 +104,9 @@ const EditWorkoutView = ({ theme: { colors: { background } } }) => {
           <Text style={styles().listDescriptionItem}>Reps</Text>
           <Text style={styles().listDescriptionItem}>Breaks</Text>
         </View>
-        {exerciseItems.map((item) => (
+        {exercises.map((item) => (
           <ExerciseItem
+            key={item.id}
             name={item.name}
             weights={item.weights}
             sets={item.sets}
@@ -144,14 +151,10 @@ const styles = (background) => StyleSheet.create({
   }
 })
 
-const exerciseItems = [
-  { id: 0, name: 'Benchpress', weights: 40, sets: 4, reps: 12, breaks: 60 },
-  { id: 1, name: 'Name', weights: 1, sets: 2, reps: 3, breaks: 4 },
-  { id: 2, name: 'Name', weights: 1, sets: 2, reps: 3, breaks: 4 },
-  { id: 3, name: 'Name', weights: 1, sets: 2, reps: 3, breaks: 4 },
-  { id: 4, name: 'Name', weights: 1, sets: 2, reps: 3, breaks: 4 },
-  { id: 5, name: 'Name', weights: 1, sets: 2, reps: 3, breaks: 4 },
-  { id: 6, name: 'Name', weights: 1, sets: 2, reps: 3, breaks: 4 },
+const mockExerciseItems = [
+  { id: uuid.v4(), name: 'Squats', weights: 0, sets: 5, reps: 10, breaks: 60 },
+  { id: uuid.v4(), name: 'Push-ups', weights: 0, sets: 3, reps: 10, breaks: 30 },
+  { id: uuid.v4(), name: 'Crunches', weights: 0, sets: 4, reps: 8, breaks: 30 },
 ]
 
 const days = [

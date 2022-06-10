@@ -1,16 +1,7 @@
-import { View, Text, SafeAreaView, StyleSheet} from "react-native";
-import { useNavigation, StackActions } from "@react-navigation/native";
-import ToggleButton from "./components/ToggleButton";
-import ToggleButton2 from "./components/ToggleButton2";
-import ToggleButton3 from "./components/ToggleButton3";
-import ToggleButton4 from "./components/ToggleButton4";
-import ToggleButton5 from "./components/ToggleButton5";
-import ToggleSection from "./components/ToggleSection";
-import ToggleButton6 from "./components/ToggleButton6";
+import { View, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import MyToggleButton from "./components/MyToggleButton";
 import { withTheme } from "react-native-paper";
-
-
-
 
 const AccountSetupView = ({
   theme: {
@@ -19,41 +10,28 @@ const AccountSetupView = ({
 }) => {
   const navigation = useNavigation();
 
+  const add = (exercise) => {
+    navigation.navigate("EditWorkout", { exercise: exercise })
+  }
 
   return (
-    <SafeAreaView style={styles(background).wrapper}>
-      <ToggleSection></ToggleSection>
-    <View style={styles().container}>     
-      <ToggleButton></ToggleButton>
-      <ToggleButton2></ToggleButton2>
-      <ToggleButton3></ToggleButton3>
-      <ToggleButton4></ToggleButton4>
-      <ToggleButton5></ToggleButton5>
-      <ToggleButton6></ToggleButton6>
-
-      
+    <View style={styles(background).container}>
+      <MyToggleButton name={"Bench press"} difficulty={"Hard"} onAdd={add}/>
+      <MyToggleButton name={"Pull ups"} difficulty={"Hard"} onAdd={add}/>
+      <MyToggleButton name={"Push ups"} difficulty={"Hard"} onAdd={add}/>
+      <MyToggleButton name={"Yates rows"} difficulty={"Hard"} onAdd={add}/>
+      <MyToggleButton name={"Deadlift classic"} difficulty={"Hard"} onAdd={add}/>
+      <MyToggleButton name={"Deadlift sumo"} difficulty={"Hard"} onAdd={add}/>
     </View>
-    </SafeAreaView>
   );
 };
 
-const styles = (background) =>
-  StyleSheet.create({
-    wrapper: {
-      flex: 1,
-      alignItems: "center",
-      backgroundColor: background,
-    },
-
-    container: {
-      flex: 1,
-      justifyContent: "space-between",
-      width: "82%",
-    },
-
-    signUpText: {
-      fontSize: 10,
-    },
-  });
+const styles = (background) => StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: background,
+    padding: 16,
+  },
+});
 
 export default withTheme(AccountSetupView);

@@ -48,7 +48,7 @@ const WorkoutPlanView = ({
           </FitButton>
           <FitButton
             style={{ marginLeft: 5, flex: 1 }}
-            onPress={() => alert("TODO")}
+            onPress={() => alert("Workout plan saved.")}
           >
             Save
           </FitButton>
