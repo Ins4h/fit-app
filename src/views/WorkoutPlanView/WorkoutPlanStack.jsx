@@ -71,7 +71,6 @@ const mockWorkoutDay = {
   name: "Potężne nogi",
   day: "Wednesday",
   time: "16:30",
-  breaks: 60,
   exercises: []
 }
 
