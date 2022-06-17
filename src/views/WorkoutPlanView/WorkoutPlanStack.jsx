@@ -30,7 +30,7 @@ const WorkoutPlanStack = () => {
             hideBackButton: true,
             title: "Workout Planner",
           }}
-          initialParams={{ workoutDay: mockWorkoutDay }}
+          // initialParams={{ workoutDay: {} }}
         />
         <Stack.Screen
           name="WorkoutPreset"
@@ -71,16 +71,16 @@ const mockWorkoutDay = {
   name: "Potężne nogi",
   day: "Wednesday",
   time: "16:30",
-  exercises: []
-}
+  exercises: [],
+};
 
 const mockExerciseItem = {
-  id: uuid.v4(), 
-  name: 'Benchpress', 
-  weights: 40, 
-  sets: 4, 
-  reps: 12, 
-  breaks: 60
-}
+  id: uuid.v4(),
+  name: "Benchpress",
+  weights: 40,
+  sets: 4,
+  reps: 12,
+  breaks: 60,
+};
 
 export default WorkoutPlanStack;

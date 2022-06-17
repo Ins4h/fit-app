@@ -13,7 +13,7 @@ const LoginForm = () => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {
-        navigation.dispatch(StackActions.replace("Dashboard"));
+        navigation.dispatch(StackActions.replace("TabNavigator"));
       })
       .catch((error) => console.log(error));
   };

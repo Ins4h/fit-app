@@ -17,35 +17,39 @@ const AccountSetupView = ({
   return (
     <SafeAreaView style={styles(background).wrapper}>
       <View style={styles().container}>
-        <Text style={{ textAlign: 'center', marginTop: 50, marginBottom: 10 }}>Gender</Text>
-        <ToggleButton>
+        <Text style={{ textAlign: "center", marginTop: 50, marginBottom: 10 }}>
+          Gender
+        </Text>
+        <ToggleButton></ToggleButton>
 
-        </ToggleButton>
-
-        <FitInput style={{ marginTop: 0, marginBottom: 15 }}
+        <FitInput
+          style={{ marginTop: 0, marginBottom: 15 }}
           label="Weight [kg]"
-        //onChangeText={handleChange("email")}
-        //onBlur={handleBlur("email")}
-        //value={values.email}
+          //onChangeText={handleChange("email")}
+          //onBlur={handleBlur("email")}
+          //value={values.email}
         />
 
         <FitInput
           label="Height [cm]"
-        //onChangeText={handleChange("email")}
-        //onBlur={handleBlur("email")}
-        //value={values.email}
+          //onChangeText={handleChange("email")}
+          //onBlur={handleBlur("email")}
+          //value={values.email}
         />
 
-        <Text style={{ marginTop: 20, marginBottom: 15 }}>Current workout level</Text>
+        <Text style={{ marginTop: 20, marginBottom: 15 }}>
+          Current workout level
+        </Text>
         <ToggleButtonLevel></ToggleButtonLevel>
-
 
         <Text style={{ marginTop: 20, marginBottom: 15 }}>Top goal</Text>
         <ToggleButtonGoal></ToggleButtonGoal>
 
-
-        <FitButton style={{ marginTop: 30 }}
-          onPress={() => navigation.dispatch(StackActions.replace("Dashboard"))}
+        <FitButton
+          style={{ marginTop: 30 }}
+          onPress={() =>
+            navigation.dispatch(StackActions.replace("TabNavigator"))
+          }
         >
           Next
         </FitButton>
