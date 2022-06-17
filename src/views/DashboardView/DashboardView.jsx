@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import { auth } from "../../../firebase.config";
 import FitButton from "../../components/FitButton";
-import ExerciseItem from "../DashboardView/components/ExerciseItem"
+import ExerciseItem from "../DashboardView/components/ExerciseItem";
 
 const DashboardView = ({
   theme: {
@@ -32,7 +32,9 @@ const DashboardView = ({
       }}
     >
       <View style={styles().container}>
-        <Text style={[styles().spacing, styles().title]}>Your next workout day</Text>
+        <Text style={[styles().spacing, styles().title]}>
+          Your next workout day
+        </Text>
         <View style={styles().workoutDay}>
           <Text style={styles().dayDate}>{"MON" + "\n" + 23}</Text>
           <View>
@@ -63,41 +65,42 @@ const DashboardView = ({
   );
 };
 
-const styles = (background) => StyleSheet.create({
-  container: {
-    padding: 16,
-    width: "100%",
-    backgroundColor: "rgba(255, 255, 255, 0.05)",
-    borderRadius: 16,
-  },
-  workoutDay: {
-    flexDirection: "row",
-    marginTop: 10,
-    justifyContent: "flex-start"
-  },
-  title: {
-    fontSize: 20,
-    textAlign: "center",
-  },
-  dayDate: {
-    fontSize: 28,
-    color: "green",
-    borderColor: "green",
-    borderRadius: 16,
-    borderWidth: 3,
-    padding: 10,
-    marginTop: 10,
-    marginRight: 20,
-    textAlign: "center",
-    fontWeight: "bold"
-  },
-});
+const styles = (background) =>
+  StyleSheet.create({
+    container: {
+      padding: 16,
+      width: "100%",
+      backgroundColor: "rgba(255, 255, 255, 0.05)",
+      borderRadius: 16,
+    },
+    workoutDay: {
+      flexDirection: "row",
+      marginTop: 10,
+      justifyContent: "flex-start",
+    },
+    title: {
+      fontSize: 20,
+      textAlign: "center",
+    },
+    dayDate: {
+      fontSize: 28,
+      color: "green",
+      borderColor: "green",
+      borderRadius: 16,
+      borderWidth: 3,
+      padding: 10,
+      marginTop: 10,
+      marginRight: 20,
+      textAlign: "center",
+      fontWeight: "bold",
+    },
+  });
 
 const exerciseItems = [
   { id: 0, name: "Squats", weights: 50, sets: 4, reps: 8 },
   { id: 1, name: "Leg press", weights: 80, sets: 4, reps: 12 },
   { id: 2, name: "Benchpress", weights: 90, sets: 4, reps: 8 },
   { id: 3, name: "Chest fly", weights: 12.5, sets: 4, reps: 8 },
-]
+];
 
 export default withTheme(DashboardView);
