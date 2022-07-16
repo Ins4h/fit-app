@@ -13,7 +13,7 @@ const FitButton = (props) => {
 
   return (
     <LinearGradient
-      colors={colors.primary}
+      colors={colors.primaryGreen}
       style={[styles(size, roundness).container, style]}
     >
       <Button color="#fff" {...rest}>

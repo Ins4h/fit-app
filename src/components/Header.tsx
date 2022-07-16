@@ -2,12 +2,23 @@ import { StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { withTheme } from "react-native-paper";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
+import { ThemeTypes } from "../theme/theme";
+// import type { NavigationProp, CompositeScreenProps } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParams } from "../../App";
 
-const Header = ({ children, navigation, options, theme: { colors } }) => {
+
+
+interface HeaderProps {
+  navigation: NativeStackNavigationProp;
+  theme: ThemeTypes;
+}
+
+const Header: React.FC<HeaderProps> = ({ children, navigation, options, theme: { colors } }) => {
   const canGoBack = navigation.canGoBack() && !options.hideBackButton;
 
   return (
-    <LinearGradient colors={colors.primary} style={[styles.container]}>
+    <LinearGradient colors={colors.primaryGreen} style={[styles.container]}>
       <View style={styles.header}>
         {canGoBack && (
           <View style={styles.backButton}>

@@ -2,7 +2,10 @@ import { StatusBar } from "expo-status-bar";
 import { Provider as PaperProvider } from "react-native-paper";
 import { setCustomText } from "react-native-global-props";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createNativeStackNavigator,
+  NativeStackNavigationProp,
+} from "@react-navigation/native-stack";
 import { theme } from "./src/theme/theme";
 import { customTextProps } from "./src/theme/customProps";
 import LoginView from "./src/views/LoginView/LoginView";
@@ -11,12 +14,22 @@ import AccountSetupView from "./src/views/AccountSetupView/AccountSetupView";
 import Header from "./src/components/Header";
 import BottomTabNavigator from "./src/navigators/BottomTabNavigator";
 
-const Stack = createNativeStackNavigator();
+export type RootStackParams = {
+  TabNavigator;
+  Login;
+  SignUp;
+};
+
+const Stack = createNativeStackNavigator<RootStackParams>();
 
 const navigatorScreenOptions = {
-  header: (props) => (
-    <Header {...props}>{props.options.title || props.route.name}</Header>
-  ),
+  header: (props) => {
+    console.log(props);
+
+    return (
+      <Header {...props}>{props.options.title || props.route.name}</Header>
+    );
+  },
 };
 
 function App() {
