@@ -2,16 +2,18 @@ import { StyleSheet, Text, View } from "react-native";
 import { LinearGradient } from "expo-linear-gradient";
 import { withTheme } from "react-native-paper";
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { ThemeTypes } from "../theme/theme";
-// import type { NavigationProp, CompositeScreenProps } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { NativeStackNavigationProp, NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import type { ThemeTypes } from "../theme/theme";
 import { RootStackParams } from "../../App";
 
-
+interface ExtendedStackNavigationOptions extends NativeStackNavigationOptions {
+  hideBackButton: Boolean;
+}
 
 interface HeaderProps {
-  navigation: NativeStackNavigationProp;
+  navigation: NativeStackNavigationProp<RootStackParams>;
   theme: ThemeTypes;
+  options: ExtendedStackNavigationOptions;
 }
 
 const Header: React.FC<HeaderProps> = ({ children, navigation, options, theme: { colors } }) => {

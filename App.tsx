@@ -4,7 +4,6 @@ import { setCustomText } from "react-native-global-props";
 import { NavigationContainer } from "@react-navigation/native";
 import {
   createNativeStackNavigator,
-  NativeStackNavigationProp,
 } from "@react-navigation/native-stack";
 import { theme } from "./src/theme/theme";
 import { customTextProps } from "./src/theme/customProps";
@@ -18,6 +17,7 @@ export type RootStackParams = {
   TabNavigator;
   Login;
   SignUp;
+  AccountSetup;
 };
 
 const Stack = createNativeStackNavigator<RootStackParams>();
