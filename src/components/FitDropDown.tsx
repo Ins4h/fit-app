@@ -1,30 +1,43 @@
 import React, { useRef, useState } from 'react';
 import { FlatList, StyleSheet, Text, TouchableOpacity, Modal, View } from 'react-native';
 
-const FitDropDown = ({ label, data, onSelect }) => {
-  const DropdownButton = useRef();
-  const [visible, setVisible] = useState(false);
-  const [selected, setSelected] = useState(undefined);
-  const [dropdownTop, setDropdownTop] = useState(0);
+
+interface ItemProp {
+  id: number;
+  label: string;
+}
+
+interface FitDropDownProps {
+  label: string;
+  data: ItemProp[];
+  onSelect: (value: string) => void;
+}
+
+const FitDropDown: React.FC<FitDropDownProps> = ({ label, data, onSelect }) => {
+  const DropdownButton = useRef<TouchableOpacity | null>(null);
+  const [visible, setVisible] = useState<boolean>(false);
+  const [selected, setSelected] = useState<ItemProp | null>(null);
+  const [dropdownTop, setDropdownTop] = useState<number>(0);
 
   const toggleDropdown = () => {
     visible ? setVisible(false) : openDropdown();
   };
 
   const openDropdown = () => {
+
     DropdownButton.current.measure((_fx, _fy, _w, _h, _px, py) => {
       setDropdownTop(py);
     });
     setVisible(true);
   };
 
-  const onItemPress = (item) => {
+  const onItemPress = (item: ItemProp): void => {
     setSelected(item);
     onSelect(item.label);
     setVisible(false);
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item }: {item: ItemProp}) => (
     <TouchableOpacity style={styles.item} onPress={() => onItemPress(item)}>
       <Text style={styles.itemText}>{item.label}</Text>
     </TouchableOpacity>
