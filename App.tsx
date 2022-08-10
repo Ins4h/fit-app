@@ -24,8 +24,6 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 
 const navigatorScreenOptions = {
   header: (props) => {
-    console.log(props);
-
     return (
       <Header {...props}>{props.options.title || props.route.name}</Header>
     );

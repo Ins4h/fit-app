@@ -34,8 +34,6 @@ const WorkoutPlanView = ({
 }) => {
   const navigation = useNavigation();
   const route = useRoute();
-  console.log(route.params?.workoutDay);
-
   const [workoutDays, setWorkoutDays] = useState([]);
   const user = auth.currentUser;
 
