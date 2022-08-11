@@ -1,6 +1,8 @@
-import { StyleSheet, Text } from "react-native";
-import { LinearGradient } from "expo-linear-gradient";
+import { StyleSheet, Text, ButtonProps, StyleProp, ViewProps } from "react-native";
+import { LinearGradient, LinearGradientProps } from "expo-linear-gradient";
 import { Button, withTheme } from "react-native-paper";
+
+
 
 const FitButton = (props) => {
   const {

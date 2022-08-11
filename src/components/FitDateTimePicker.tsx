@@ -1,7 +1,12 @@
 import React, { useState } from 'react';
 import DateTimePicker from "@react-native-community/datetimepicker";
 
-const FitDateTimePicker = ({ type, onPick }) => {
+interface FitDateTimePickerProps {
+  type: "date" | "time";
+  onPick: (value: string) => void;
+}
+
+const FitDateTimePicker: React.FC<FitDateTimePickerProps> = ({ type, onPick }) => {
   const [mode, setMode] = useState(type)
   const [date, setDate] = useState(new Date())
 
