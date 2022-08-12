@@ -5,12 +5,15 @@ import { useNavigation } from "@react-navigation/native";
 import { auth } from "../../../../firebase.config";
 import FitButton from "../../../components/FitButton";
 import FitInput from "../../../components/FitInput";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParams } from "../../../../App";
 
-const SignUpForm = () => {
-  const navigation = useNavigation();
+const SignUpForm: React.FC = () => {
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParams>>();
   const [passwordNotMatch, setPasswordNotMatch] = useState(false);
 
-  const handleSignUp = (email, password) => {
+  const handleSignUp = (email: string, password: string) => {
     auth
       .createUserWithEmailAndPassword(email, password)
       .then(() =>
@@ -30,7 +33,7 @@ const SignUpForm = () => {
       onSubmit={({ email, password, confirmPassword }, actions) => {
         if (password === confirmPassword) handleSignUp(email, password);
         else {
-          actions.setValues({ password: "", confirmPassword: "" });
+          actions.setValues({ email: "", password: "", confirmPassword: "" });
           setPasswordNotMatch(true);
         }
       }}

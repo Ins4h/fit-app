@@ -6,10 +6,16 @@ import FitButton from "../../../components/FitButton";
 import FitInput from "../../../components/FitInput";
 import Separator from "./Separator";
 
-const LoginForm = () => {
+const LoginForm: React.FC = () => {
   const navigation = useNavigation();
 
-  const handleSignInWithEmailAndPassword = ({ email, password }) => {
+  const handleSignInWithEmailAndPassword = ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
     auth
       .signInWithEmailAndPassword(email, password)
       .then(() => {

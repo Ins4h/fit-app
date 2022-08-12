@@ -1,10 +1,16 @@
-import { StyleSheet, Text, ButtonProps, StyleProp, ViewProps } from "react-native";
-import { LinearGradient, LinearGradientProps } from "expo-linear-gradient";
+import { StyleSheet, Text } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
 import { Button, withTheme } from "react-native-paper";
+import { ThemeTypes } from "../theme/theme";
 
+type ButtonInputProps = React.ComponentProps<typeof Button>;
 
+type FitButtonProps = ButtonInputProps & {
+  theme: ThemeTypes;
+  size?: string;
+};
 
-const FitButton = (props) => {
+const FitButton: React.FC<FitButtonProps> = (props) => {
   const {
     theme: { colors, roundness },
     children,
@@ -25,7 +31,7 @@ const FitButton = (props) => {
   );
 };
 
-const styles = (size, roundness) =>
+const styles = (size?, roundness?) =>
   StyleSheet.create({
     container: {
       width: size === "medium" ? "50%" : "100%",

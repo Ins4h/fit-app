@@ -1,13 +1,15 @@
 import { View, Text, SafeAreaView, StyleSheet } from "react-native";
 import { useNavigation, StackActions } from "@react-navigation/native";
 import FitButton from "../../components/FitButton";
-import ToggleButton from "./components/ToggleButton";
+import ToggleButton from "./components/FitToggleButton";
 import ToggleButtonLevel from "./components/ToggleButtonLevel";
 import ToggleButtonGoal from "./components/ToggleButtonGoal";
 import FitInput from "../../components/FitInput";
 import { withTheme } from "react-native-paper";
+import type { ThemeTypes } from "../../theme/theme";
 
-const AccountSetupView = ({
+
+const AccountSetupView: React.FC<{theme: ThemeTypes}> = ({
   theme: {
     colors: { background },
   },
@@ -29,7 +31,7 @@ const AccountSetupView = ({
           //onBlur={handleBlur("email")}
           //value={values.email}
         />
-
+        
         <FitInput
           label="Height [cm]"
           //onChangeText={handleChange("email")}
@@ -58,7 +60,7 @@ const AccountSetupView = ({
   );
 };
 
-const styles = (background) =>
+const styles = (background?: string) =>
   StyleSheet.create({
     wrapper: {
       flex: 1,

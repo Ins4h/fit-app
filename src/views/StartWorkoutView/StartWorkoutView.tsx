@@ -1,6 +1,6 @@
 import { View, Text } from "react-native";
 
-const StartWorkoutView = () => {
+const StartWorkoutView: React.FC = () => {
   return (
     <View>
       <Text>StartWorkoutView</Text>

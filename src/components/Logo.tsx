@@ -2,7 +2,7 @@ import { View, StyleSheet, StyleProp, ViewProps } from "react-native";
 import LeftBiceps from "../icons/LeftBiceps";
 import RightBiceps from "../icons/RightBiceps";
 
-const Logo: React.FC<{style: StyleProp<ViewProps>}> = ({ style }) => {
+const Logo: React.FC<{ style?: StyleProp<ViewProps> }> = ({ style }) => {
   return (
     <View style={[styles.container, style]}>
       <View style={{ marginRight: 30 }}>

@@ -1,7 +1,10 @@
 import { View, Text } from "react-native";
 import { withTheme } from "react-native-paper";
+import type { ThemeTypes } from "../../theme/theme";
 
-const WorkoutPresetView = ({ theme: { colors } }) => {
+const WorkoutPresetView: React.FC<{ theme: ThemeTypes }> = ({
+  theme: { colors },
+}) => {
   return (
     <View
       style={{

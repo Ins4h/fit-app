@@ -5,19 +5,22 @@ import { withTheme } from "react-native-paper";
 import FitButton from "../../components/FitButton";
 import FitInput from "../../components/FitInput";
 import uuid from "react-native-uuid";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { WorkoutPlanStackParams } from '../WorkoutPlanView/WorkoutPlanStack';
+import type { ThemeTypes } from '../../theme/theme';
 
-const EditExerciseView = ({
+const EditExerciseView: React.FC<{ theme: ThemeTypes }> = ({
   theme: {
     colors: { background },
   },
 }) => {
-  const navigation = useNavigation()
+  const navigation = useNavigation<NativeStackNavigationProp<WorkoutPlanStackParams>>()
 
-  const [title, setTitle] = useState()
-  const [weights, setWeights] = useState()
-  const [sets, setSets] = useState()
-  const [reps, setReps] = useState()
-  const [breaks, setBreaks] = useState()
+  const [title, setTitle] = useState<string>()
+  const [weights, setWeights] = useState<string>()
+  const [sets, setSets] = useState<string>()
+  const [reps, setReps] = useState<string>()
+  const [breaks, setBreaks] = useState<string>()
 
   const saveExercise = () => {
     const exercise = {
@@ -48,32 +51,32 @@ const EditExerciseView = ({
         />
         <FitInput
           style={styles().spacing}
-          keyboardType="numeric"
           label="Weights"
+          keyboardType='numeric'
           mode="outlined"
           onChangeText={(text) => setWeights(text.replace(/[^0-9]/g, ''))}
           value={weights}
         />
         <FitInput
           style={styles().spacing}
-          keyboardType="numeric"
           label="Sets"
+          keyboardType='numeric'
           mode="outlined"
           onChangeText={(text) => setSets(text.replace(/[^0-9]/g, ''))}
           value={sets}
         />
         <FitInput
           style={styles().spacing}
-          keyboardType="numeric"
           label="Reps"
+          keyboardType='numeric'
           mode="outlined"
           onChangeText={(text) => setReps(text.replace(/[^0-9]/g, ''))}
           value={reps}
         />
         <FitInput
           style={styles().spacing}
-          keyboardType="numeric"
           label="Break"
+          keyboardType='numeric'
           mode="outlined"
           onChangeText={(text) => setBreaks(text.replace(/[^0-9]/g, ''))}
           value={breaks}
@@ -91,7 +94,7 @@ const EditExerciseView = ({
   );
 };
 
-const styles = (background) => StyleSheet.create({
+const styles = (background?) => StyleSheet.create({
   wrapper: {
     flex: 1,
     alignItems: "center",

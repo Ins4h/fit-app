@@ -7,11 +7,22 @@ import EditWorkoutView from "../EditWorkoutView/EditWorkoutView";
 import uuid from "react-native-uuid";
 import EditExerciseView from "../EditExerciseView/EditExerciseView";
 import ListOfExercisesView from "../ListOfExercisesView/ListOfExercisesView";
+import type { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import type { HeaderProps } from "../../components/Header";
 
-const Stack = createNativeStackNavigator();
 
-const navigatorScreenOptions = {
-  header: (props) => (
+export type WorkoutPlanStackParams = {
+  WorkoutPlan;
+  WorkoutPreset;
+  EditWorkout;
+  EditExercise;
+  ListOfExercises
+}
+
+const Stack = createNativeStackNavigator<WorkoutPlanStackParams>();
+
+const navigatorScreenOptions: NativeStackNavigationOptions = {
+  header: (props: HeaderProps) => (
     <Header {...props}>{props.options.title || props.route.name}</Header>
   ),
 };
@@ -26,10 +37,10 @@ const WorkoutPlanStack = () => {
         <Stack.Screen
           name="WorkoutPlan"
           component={WorkoutPlanView}
-          options={{
+          options={ () => ({
             hideBackButton: true,
             title: "Workout Planner",
-          }}
+          })}
           // initialParams={{ workoutDay: {} }}
         />
         <Stack.Screen

@@ -1,21 +1,32 @@
-import { StyleSheet, View, SafeAreaView, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  SafeAreaView,
+  Text,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import FitButton from "../../components/FitButton";
 import SignUpForm from "./components/SignUpForm";
 import Logo from "../../components/Logo";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParams } from "../../../App";
+import type { ThemeTypes } from "../../theme/theme";
 
-const SignUpView = ({
+const SignUpView: React.FC<{ theme: ThemeTypes }> = ({
   theme: {
     colors: { background },
   },
 }) => {
-  const navigation = useNavigation();
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParams>>();
 
   return (
     <SafeAreaView style={styles(background).wrapper}>
       <View style={styles().container}>
-        <Logo style={{ marginTop: 42 }} />
+        <Logo style={{ marginTop: 42 } as StyleProp<ViewStyle>} />
         <SignUpForm />
         <View>
           <Text style={styles().signUpText}>Already have an account?</Text>
@@ -33,7 +44,7 @@ const SignUpView = ({
   );
 };
 
-const styles = (background) =>
+const styles = (background?) =>
   StyleSheet.create({
     wrapper: {
       flex: 1,

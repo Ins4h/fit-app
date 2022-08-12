@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Key } from "react";
 import { View, Text, StyleSheet, ScrollView } from "react-native";
-import { useNavigation, useRoute } from "@react-navigation/native";
+import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import FitButton from "../../components/FitButton";
 import FitInput from "../../components/FitInput";
@@ -14,10 +14,29 @@ import {
   getDoc,
   updateDoc,
 } from "firebase/firestore/lite";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { WorkoutPlanStackParams } from "./WorkoutPlanStack";
+import type { ThemeTypes } from "../../theme/theme";
 
 const db = getFirestore(firebaseApp);
 
-const mockWorkoutDays = [
+interface ExerciseItemProps {
+  name: string;
+  weights: number;
+  sets: number;
+  reps: number;
+  breaks: number;
+}
+
+interface WorkoutDayTypes {
+  id: string | number[];
+  name: string;
+  day: string;
+  time: string;
+  exercises: ExerciseItemProps[];
+}
+
+const mockWorkoutDays: WorkoutDayTypes[] = [
   {
     id: uuid.v4(),
     name: "Klata, plecy, barki",
@@ -27,14 +46,15 @@ const mockWorkoutDays = [
   },
 ];
 
-const WorkoutPlanView = ({
+const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
   theme: {
     colors: { background },
   },
 }) => {
-  const navigation = useNavigation();
-  const route = useRoute();
-  const [workoutDays, setWorkoutDays] = useState([]);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<WorkoutPlanStackParams>>();
+  const route = useRoute<RouteProp<WorkoutPlanStackParams>>();
+  const [workoutDays, setWorkoutDays] = useState<WorkoutDayTypes[]>([]);
   const user = auth.currentUser;
 
   useEffect(() => {
@@ -111,7 +131,7 @@ const WorkoutPlanView = ({
                 name={item.name}
                 day={item.day}
                 time={item.time}
-                key={item.id}
+                key={item.id as Key}
               />
             ))}
         </View>
@@ -129,7 +149,7 @@ const WorkoutPlanView = ({
   );
 };
 
-const styles = (background) =>
+const styles = (background?) =>
   StyleSheet.create({
     wrapper: {
       flex: 1,

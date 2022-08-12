@@ -3,20 +3,28 @@ import { View } from "react-native";
 import DashboardView from "./DashboardView";
 import StartWorkoutView from "../StartWorkoutView/StartWorkoutView";
 import Header from "../../components/Header";
+import type { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import type { HeaderProps } from "../../components/Header";
 
-const Stack = createNativeStackNavigator();
 
-const navigatorScreenOptions = {
-  header: (props) => (
+export type DashboardStackParam = {
+  DashboardView;
+  StartWorkout;
+}
+
+const Stack = createNativeStackNavigator<DashboardStackParam>();
+
+const navigatorScreenOptions: NativeStackNavigationOptions = {
+  header: (props: HeaderProps) => (
     <Header {...props}>{props.options.title || props.route.name}</Header>
   ),
 };
 
-const DashboardStack = () => {
+const DashboardStack: React.FC = () => {
   return (
     <View style={{ flex: 1 }} collapsable={false}>
       <Stack.Navigator
-        initialRouteName="Dashboardview"
+        initialRouteName="DashboardView"
         screenOptions={navigatorScreenOptions}
       >
         <Stack.Screen

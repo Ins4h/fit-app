@@ -12,6 +12,8 @@ import SignUpView from "./src/views/SignUpView/SignUpView";
 import AccountSetupView from "./src/views/AccountSetupView/AccountSetupView";
 import Header from "./src/components/Header";
 import BottomTabNavigator from "./src/navigators/BottomTabNavigator";
+import type { NativeStackNavigationOptions } from "@react-navigation/native-stack";
+import type { HeaderProps } from "./src/components/Header";
 
 export type RootStackParams = {
   TabNavigator;
@@ -20,10 +22,11 @@ export type RootStackParams = {
   AccountSetup;
 };
 
+
 const Stack = createNativeStackNavigator<RootStackParams>();
 
-const navigatorScreenOptions = {
-  header: (props) => {
+const navigatorScreenOptions: NativeStackNavigationOptions = {
+  header: (props: HeaderProps) => {
     return (
       <Header {...props}>{props.options.title || props.route.name}</Header>
     );

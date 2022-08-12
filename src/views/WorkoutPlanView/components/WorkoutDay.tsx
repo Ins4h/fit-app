@@ -1,7 +1,20 @@
 import { View, Text, StyleSheet } from "react-native";
 import { withTheme } from "react-native-paper";
+import type { ThemeTypes } from "../../../theme/theme";
 
-const WorkoutDay = ({ name, day, time, theme: { colors } }) => {
+interface WorkoutDayProps {
+  name: string;
+  day: string;
+  time: string;
+  theme: ThemeTypes;
+}
+
+const WorkoutDay: React.FC<WorkoutDayProps> = ({
+  name,
+  day,
+  time,
+  theme: { colors },
+}) => {
   return (
     <View style={styles(colors.secondary).container}>
       <Text style={styles().name}>{name}</Text>
@@ -12,7 +25,7 @@ const WorkoutDay = ({ name, day, time, theme: { colors } }) => {
   );
 };
 
-const styles = (background) =>
+const styles = (background?) =>
   StyleSheet.create({
     container: {
       width: "100%",

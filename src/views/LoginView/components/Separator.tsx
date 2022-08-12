@@ -1,6 +1,6 @@
-import { StyleSheet, View, Text } from "react-native";
+import { StyleSheet, View, Text, StyleProp, ViewStyle } from "react-native";
 
-const Separator = ({ style }) => {
+const Separator: React.FC<{ style: StyleProp<ViewStyle> }> = ({ style }) => {
   return (
     <View style={[styles.container, style]}>
       <View style={styles.line} />

@@ -3,14 +3,18 @@ import { useNavigation } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import { auth } from "../../../firebase.config";
 import FitButton from "../../components/FitButton";
-import ExerciseItem from "../DashboardView/components/ExerciseItem";
+import ExerciseItem from "./components/ExerciseItem";
+import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import type { RootStackParams } from "../../../App";
+import type { ThemeTypes } from "../../theme/theme";
 
-const DashboardView = ({
+
+const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
   theme: {
     colors: { background },
   },
 }) => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<NativeStackNavigationProp<RootStackParams>>();
   const handleSignOut = () => {
     auth
       .signOut()
@@ -32,7 +36,7 @@ const DashboardView = ({
       }}
     >
       <View style={styles().container}>
-        <Text style={[styles().spacing, styles().title]}>
+        <Text style={styles().title}>
           Your next workout day
         </Text>
         <View style={styles().workoutDay}>
@@ -65,7 +69,7 @@ const DashboardView = ({
   );
 };
 
-const styles = (background) =>
+const styles = (background?) =>
   StyleSheet.create({
     container: {
       padding: 16,

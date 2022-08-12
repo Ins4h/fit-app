@@ -3,15 +3,17 @@ import DashboardStack from "../views/DashboardView/DashboardStack";
 import WorkoutPlanStack from "../views/WorkoutPlanView/WorkoutPlanStack";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 
-const Tab = createMaterialBottomTabNavigator();
+type BottomTabNavigatorParams = {
+  Dashboard;
+  Workout;
+}
 
-const BottomTabNavigator = () => {
+const Tab = createMaterialBottomTabNavigator<BottomTabNavigatorParams>();
+
+const BottomTabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
       initialRouteName="Dashboard"
-      screenOptions={{
-        headerShown: false,
-      }}
       barStyle={{ backgroundColor: "#454545" }}
       activeColor="#4CAF50"
     >
