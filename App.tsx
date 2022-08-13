@@ -2,9 +2,7 @@ import { StatusBar } from "expo-status-bar";
 import { Provider as PaperProvider } from "react-native-paper";
 import { setCustomText } from "react-native-global-props";
 import { NavigationContainer } from "@react-navigation/native";
-import {
-  createNativeStackNavigator,
-} from "@react-navigation/native-stack";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { theme } from "./src/theme/theme";
 import { customTextProps } from "./src/theme/customProps";
 import LoginView from "./src/views/LoginView/LoginView";
@@ -21,7 +19,6 @@ export type RootStackParams = {
   SignUp;
   AccountSetup;
 };
-
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
