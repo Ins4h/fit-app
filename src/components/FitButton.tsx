@@ -7,7 +7,7 @@ type ButtonInputProps = React.ComponentProps<typeof Button>;
 
 type FitButtonProps = ButtonInputProps & {
   theme: ThemeTypes;
-  size?: string;
+  size?: "medium" | "large";
 };
 
 const FitButton: React.FC<FitButtonProps> = (props) => {

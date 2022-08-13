@@ -1,19 +1,65 @@
-import * as React from 'react';
-import { ToggleButton } from 'react-native-paper';
+import React, { useState } from "react";
+import { ToggleButton, withTheme, Button } from "react-native-paper";
+import { StyleSheet } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import type { ThemeTypes } from "../../../theme/theme";
 
-const FitToggleButton: React.FC = (): JSX.Element => {
-  const [value, setValue] = React.useState('male');
+const FitToggleButton: React.FC<{ theme: ThemeTypes }> = ({
+  theme: {
+    colors: { background, secondary, primaryGreen },
+  },
+}) => {
+  const [value, setValue] = useState<string>(null);
 
   return (
-    <ToggleButton.Row onValueChange={value => setValue(value)} value={value}  style = {{justifyContent: 'center', backgroundColor: 'rgb(77,197,82)', borderRadius: 6}}>
-      <ToggleButton color="white" icon="gender-male" value="male" style = {{ width: 75, height: 75, borderRadius: 10}}/>
-      <ToggleButton color="white" icon="gender-female" value="female"  style = {{ width: 75, height: 75, borderRadius: 10}}/>
+    <ToggleButton.Row
+      onValueChange={(value) => setValue(value)}
+      value={value}
+      style={{
+        justifyContent: "center",
+        backgroundColor: background,
+        borderRadius: 6,
+      }}
+    >
+      <LinearGradient
+        colors={value === "female" ? primaryGreen : [secondary, secondary]}
+        style={styles().button}
+      >
+        <ToggleButton
+          color="white"
+          icon="gender-female"
+          size={44}
+          value="female"
+          style={{ backgroundColor: "transparent" }}
+        />
+      </LinearGradient>
+      <LinearGradient
+        colors={value === "male" ? primaryGreen : [secondary, secondary]}
+        style={styles().button}
+      >
+        <ToggleButton
+          color="white"
+          icon="gender-male"
+          value="male"
+          size={40}
+          style={{ backgroundColor: "transparent" }}
+        />
+      </LinearGradient>
     </ToggleButton.Row>
   );
 };
 
-export default FitToggleButton;
+const styles = () =>
+  StyleSheet.create({
+    button: {
+      justifyContent: "center",
+      alignItems: "center",
+      width: 64,
+      height: 64,
+      borderRadius: 16,
+      marginRight: 8,
+      marginLeft: 8,
+    },
+  });
 
-
-
-
+export default withTheme(FitToggleButton);
