@@ -4,7 +4,7 @@ import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import FitButton from "../../components/FitButton";
 import FitInput from "../../components/FitInput";
-import WorkoutDay from "./components/WorkoutDay";
+import WorkoutDay from "../../components/WorkoutDay";
 import uuid from "react-native-uuid";
 import firebaseApp, { auth } from "../../../firebase.config";
 import {
@@ -20,7 +20,8 @@ import type { ThemeTypes } from "../../theme/theme";
 
 const db = getFirestore(firebaseApp);
 
-interface ExerciseItemProps {
+interface ExerciseItemProp {
+  id: string;
   name: string;
   weights: number;
   sets: number;
@@ -28,23 +29,33 @@ interface ExerciseItemProps {
   breaks: number;
 }
 
-interface WorkoutDayTypes {
-  id: string | number[];
+interface WorkoutItemProp {
+  id: string;
   name: string;
-  day: string;
+  description: string;
   time: string;
-  exercises: ExerciseItemProps[];
+  day: string;
+  breaksBetweenExercises: number;
+  warmupTime: number;
+  exercises: ExerciseItemProp[];
 }
 
-const mockWorkoutDays: WorkoutDayTypes[] = [
-  {
-    id: uuid.v4(),
-    name: "Klata, plecy, barki",
-    day: "Monday",
-    time: "16:30",
-    exercises: [],
-  },
-];
+interface MyPlanItemProp {
+  id: string;
+  name: string;
+  description: string;
+  workoutItem: WorkoutItemProp[];
+}
+
+// const mockWorkoutDays: WorkoutItemTypes[] = [
+//   {
+//     id: uuid.v4(),
+//     name: "Klata, plecy, barki",
+//     day: "Monday",
+//     time: "16:30",
+//     exercises: [],
+//   },
+// ];
 
 const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
   theme: {
@@ -54,20 +65,21 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<WorkoutPlanStackParams>>();
   const route = useRoute<RouteProp<WorkoutPlanStackParams>>();
-  const [workoutDays, setWorkoutDays] = useState<WorkoutDayTypes[]>([]);
+  const [workoutDays, setWorkoutDays] = useState<MyPlanItemProp>();
   const user = auth.currentUser;
+  const haveCurrentWorkout = true;
 
-  useEffect(() => {
-    if (route.params) {
-      setWorkoutDays([...workoutDays, route.params.workoutDay]);
-    }
-  }, [route]);
+  // useEffect(() => {
+  //   if (route.params) {
+  //     setWorkoutDays([...workoutDays, route.params.workoutDay]);
+  //   }
+  // }, [route]);
 
   useEffect(() => {
     const fetchWorkout = async () => {
       const workoutData = await getData();
       if (workoutData) {
-        setWorkoutDays([...workoutData.workoutDays]);
+        setWorkoutDays(workoutData.workoutDays);
       }
     };
     fetchWorkout();
@@ -98,55 +110,66 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
     }
   };
 
-  return (
-    <View style={styles(background).wrapper}>
-      <ScrollView
-        style={{
-          flex: 1,
-          width: "93%",
-        }}
-      >
-        <FitInput style={styles().spacing} label="Title" mode="outlined" />
-        <FitInput
-          style={styles().spacing}
-          label="Description"
-          mode="outlined"
-        />
-        <View style={[styles().spacing, styles().buttonContainer]}>
-          <FitButton
-            style={{ marginRight: 5, flex: 1 }}
-            onPress={() => navigation.navigate("WorkoutPreset")}
-          >
-            Choose Preset
-          </FitButton>
-          <FitButton style={{ marginLeft: 5, flex: 1 }} onPress={saveData}>
-            Save
-          </FitButton>
-        </View>
-        <View>
-          <Text style={[styles().spacing, styles().title]}>Workout Plan</Text>
-          {workoutDays.length > 0 &&
-            workoutDays.map((item) => (
-              <WorkoutDay
-                name={item.name}
-                day={item.day}
-                time={item.time}
-                key={item.id as Key}
-              />
-            ))}
-        </View>
-        <FitButton
-          style={styles().addButton}
-          size="medium"
-          onPress={() => {
-            navigation.navigate("EditWorkout");
+  if (haveCurrentWorkout) {
+    return (
+      <View style={styles(background).wrapper}>
+        <ScrollView
+          style={{
+            flex: 1,
+            width: "93%",
           }}
         >
-          ADD
-        </FitButton>
-      </ScrollView>
-    </View>
-  );
+          <View style={[styles().spacing, styles().buttonContainer]}>
+            <FitButton
+              style={{ marginRight: 5, flex: 1 }}
+              onPress={() => navigation.navigate("WorkoutPreset")}
+            >
+              Choose Preset
+            </FitButton>
+            <FitButton style={{ marginLeft: 5, flex: 1 }} onPress={saveData}>
+              Save
+            </FitButton>
+          </View>
+          <View>
+            <Text style={[styles().spacing, styles().title]}>Workout Plan</Text>
+            {workoutDays?.workoutItem.length > 0 &&
+              workoutDays?.workoutItem.map((item) => (
+                <WorkoutDay
+                  name={item.name}
+                  day={item.day}
+                  time={item.time}
+                  key={item.id as Key}
+                />
+              ))}
+          </View>
+          <FitButton
+            style={styles().addButton}
+            size="medium"
+            onPress={() => {
+              navigation.navigate("EditWorkout");
+            }}
+          >
+            ADD
+          </FitButton>
+        </ScrollView>
+      </View>
+    );
+  } else {
+    return (
+      <View style={styles(background).wrapper}>
+        <ScrollView
+          style={{
+            flex: 1,
+            width: "93%",
+          }}
+        >
+          <FitButton onPress={() => navigation.navigate("EditPlan")}>
+            Add your own workout
+          </FitButton>
+        </ScrollView>
+      </View>
+    );
+  }
 };
 
 const styles = (background?) =>

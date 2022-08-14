@@ -1,6 +1,6 @@
 import { View, Text, StyleSheet } from "react-native";
 import { withTheme } from "react-native-paper";
-import type { ThemeTypes } from "../../../theme/theme";
+import type { ThemeTypes } from "../theme/theme";
 
 interface WorkoutDayProps {
   name: string;

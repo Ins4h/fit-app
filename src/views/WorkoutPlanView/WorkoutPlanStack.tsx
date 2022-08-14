@@ -4,20 +4,21 @@ import Header from "../../components/Header";
 import WorkoutPlanView from "./WorkoutPlanView";
 import WorkoutPresetView from "../WorkoutPresetView/WorkoutPresetView";
 import EditWorkoutView from "../EditWorkoutView/EditWorkoutView";
+import EditPlanView from "../EditPlanView/EditPlanView";
 import uuid from "react-native-uuid";
 import EditExerciseView from "../EditExerciseView/EditExerciseView";
 import ListOfExercisesView from "../ListOfExercisesView/ListOfExercisesView";
 import type { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import type { HeaderProps } from "../../components/Header";
 
-
 export type WorkoutPlanStackParams = {
   WorkoutPlan;
   WorkoutPreset;
   EditWorkout;
   EditExercise;
-  ListOfExercises
-}
+  ListOfExercises;
+  EditPlan;
+};
 
 const Stack = createNativeStackNavigator<WorkoutPlanStackParams>();
 
@@ -37,7 +38,7 @@ const WorkoutPlanStack = () => {
         <Stack.Screen
           name="WorkoutPlan"
           component={WorkoutPlanView}
-          options={ () => ({
+          options={() => ({
             hideBackButton: true,
             title: "Workout Planner",
           })}
@@ -50,6 +51,7 @@ const WorkoutPlanStack = () => {
             title: "Workout Preset",
           }}
         />
+        <Stack.Screen name="EditPlan" component={EditPlanView} />
         <Stack.Screen
           name="EditWorkout"
           component={EditWorkoutView}
