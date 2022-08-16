@@ -134,15 +134,21 @@ const styles = (background?) =>
   });
 
 const exerciseItems: ExerciseItemProp[] = [
-  { id: 0, name: "Squats", weights: 50, sets: 4, reps: 8, breaks: 30 },
-  { id: 1, name: "Leg press", weights: 80, sets: 4, reps: 12, breaks: 30 },
-  { id: 2, name: "Benchpress", weights: 90, sets: 4, reps: 8, breaks: 30 },
-  { id: 3, name: "Chest fly", weights: 12.5, sets: 4, reps: 8, breaks: 30 },
+  { id: 3, name: "Squats", weights: 50, sets: 4, reps: 8, breaks: 30 },
+  { id: 4, name: "Leg press", weights: 80, sets: 4, reps: 12, breaks: 30 },
+  { id: 5, name: "Benchpress", weights: 90, sets: 4, reps: 8, breaks: 30 },
+  { id: 6, name: "Chest fly", weights: 12.5, sets: 4, reps: 8, breaks: 30 },
 ];
 
+const exerciseItems2: ExerciseItemProp[] = [
+  { id: 7, name: "Squats", weights: 50, sets: 4, reps: 8, breaks: 30 },
+  { id: 8, name: "Leg press", weights: 80, sets: 4, reps: 12, breaks: 30 },
+  { id: 9, name: "Benchpress", weights: 90, sets: 4, reps: 8, breaks: 30 },
+  { id: 10, name: "Chest fly", weights: 12.5, sets: 4, reps: 8, breaks: 30 },
+];
 const workoutItems: WorkoutItemProp[] = [
   {
-    id: 0,
+    id: 1,
     name: "Klata plecy barki",
     description: "zachowanie mocy",
     time: "17:00",
@@ -150,6 +156,16 @@ const workoutItems: WorkoutItemProp[] = [
     day: "Monday",
     warmupTime: 15,
     exercises: exerciseItems,
+  },
+  {
+    id: 2,
+    name: "nogi",
+    description: "zachowanie mocy",
+    time: "17:00",
+    breaksBetweenExercises: 120,
+    day: "wednesday",
+    warmupTime: 15,
+    exercises: exerciseItems2,
   },
 ];
 

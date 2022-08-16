@@ -58,7 +58,6 @@ const WorkoutPlanStack = () => {
           options={{
             title: "Edit Workout",
           }}
-          initialParams={{ exercise: mockExerciseItem }}
         />
         <Stack.Screen
           name="EditExercise"
@@ -77,23 +76,6 @@ const WorkoutPlanStack = () => {
       </Stack.Navigator>
     </View>
   );
-};
-
-const mockWorkoutDay = {
-  id: uuid.v4(),
-  name: "Potężne nogi",
-  day: "Wednesday",
-  time: "16:30",
-  exercises: [],
-};
-
-const mockExerciseItem = {
-  id: uuid.v4(),
-  name: "Benchpress",
-  weights: 40,
-  sets: 4,
-  reps: 12,
-  breaks: 60,
 };
 
 export default WorkoutPlanStack;
