@@ -51,8 +51,6 @@ const EditWorkoutView: React.FC<EditWorkoutViewProp> = ({
     (val) => val.id === route.params?.workoutItemId
   );
 
-  console.log(workoutItem);
-
   const [title, setTitle] = useState<string>(workoutItem?.name);
   const [breaks, setBreaks] = useState<string>(
     workoutItem?.breaksBetweenExercises?.toString()

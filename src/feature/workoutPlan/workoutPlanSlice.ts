@@ -10,11 +10,19 @@ const workoutPlanSlice = createSlice({
   name: "plan",
   initialState: null,
   reducers: {
-    savePlan(
+    initPlan(
       state: WorkoutPlanProp | null,
       action: PayloadAction<WorkoutPlanProp>
     ) {
       return action.payload;
+    },
+
+    savePlan(
+      state: WorkoutPlanProp,
+      action: PayloadAction<{ title: string; description: string }>
+    ) {
+      state.name = action.payload.title;
+      state.description = action.payload.description;
     },
 
     saveWorkoutItem(
@@ -81,6 +89,7 @@ const workoutPlanSlice = createSlice({
 });
 
 export const {
+  initPlan,
   savePlan,
   saveWorkoutItem,
   removeWorkoutItem,

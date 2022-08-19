@@ -88,6 +88,12 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
   //   }
   // };
 
+  const onWorkoutPlanAdd = () => {
+    navigation.navigate("EditPlan", {
+      workoutItemId: uuid.v4().toString(),
+    });
+  };
+
   if (haveCurrentWorkout) {
     return (
       <View style={styles(background).wrapper}>
@@ -97,35 +103,36 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
             width: "93%",
           }}
         >
-          <View
-            style={[
-              styles().spacing,
-              styles().buttonContainer,
-              { justifyContent: "center" },
-            ]}
+          <TouchableOpacity
+            onPress={() => {
+              navigation.navigate("EditPlan", {
+                workoutPlanId: workoutPlanItem.id,
+              });
+            }}
           >
-            {/* <FitButton
-              style={{ marginRight: 5, flex: 1 }}
-              onPress={() => navigation.navigate("WorkoutPreset")}
-            >
-              Choose Preset
-            </FitButton>
-            <FitButton style={{ marginLeft: 5, flex: 1 }}>Save</FitButton> */}
             <View
-              style={{
-                backgroundColor: "green",
-                width: "93%",
-                height: 120,
-                alignSelf: "center",
-                borderRadius: 12,
-                justifyContent: "center",
-                alignItems: "center",
-              }}
+              style={[
+                styles().spacing,
+                styles().buttonContainer,
+                { justifyContent: "center" },
+              ]}
             >
-              <Text>{workoutPlanItem.name}</Text>
-              <Text>{workoutPlanItem.description}</Text>
+              <View
+                style={{
+                  backgroundColor: "green",
+                  width: "93%",
+                  height: 120,
+                  alignSelf: "center",
+                  borderRadius: 12,
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <Text>{workoutPlanItem.name}</Text>
+                <Text>{workoutPlanItem.description}</Text>
+              </View>
             </View>
-          </View>
+          </TouchableOpacity>
           <View>
             <Text style={[styles().spacing, styles().title]}>Workout Plan</Text>
             {workoutPlanItem?.workoutItem.length > 0 &&
@@ -189,9 +196,7 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
             width: "93%",
           }}
         >
-          <FitButton onPress={() => navigation.navigate("EditPlan")}>
-            Add your workout
-          </FitButton>
+          <FitButton onPress={onWorkoutPlanAdd}>Add your workout</FitButton>
         </ScrollView>
       </View>
     );

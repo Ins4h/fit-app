@@ -5,7 +5,7 @@ import { withTheme } from "react-native-paper";
 import firebaseApp, { auth } from "../../../firebase.config";
 import { getFirestore, doc, getDoc } from "firebase/firestore/lite";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { savePlan } from "../../feature/workoutPlan/workoutPlanSlice";
+import { initPlan } from "../../feature/workoutPlan/workoutPlanSlice";
 import FitButton from "../../components/FitButton";
 import ExerciseItem from "./components/ExerciseItem";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -16,6 +16,7 @@ import type {
   WorkoutItemProp,
   WorkoutPlanProp,
 } from "../../../types";
+import type { WorkoutPlanStackParams } from "../WorkoutPlanView/WorkoutPlanStack";
 
 const db = getFirestore(firebaseApp);
 
@@ -28,11 +29,12 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
   const dispatch = useAppDispatch();
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
-  const workoutPlanItem = useAppSelector((state) => state.plan);
 
-  useEffect(() => {
-    dispatch(savePlan(workoutPlanMock));
-  }, []);
+  // useEffect(() => {
+  //   dispatch(initPlan(workoutPlanMock));
+  // }, []);
+
+  const haveCurrentWorkout = false;
 
   const handleSignOut = () => {
     auth
@@ -72,23 +74,30 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
         backgroundColor: background,
       }}
     >
-      <View style={styles().container}>
-        <Text style={styles().title}>Your next workout day</Text>
-        <View style={styles().workoutDay}>
-          <Text style={styles().dayDate}>{"MON" + "\n" + 23}</Text>
-          <View>
-            {exerciseItems?.map((item) => (
-              <ExerciseItem
-                key={item.id}
-                name={item.name}
-                weights={item.weights}
-                sets={item.sets}
-                reps={item.reps}
-              />
-            ))}
+      {haveCurrentWorkout ? (
+        <View style={styles().container}>
+          <Text style={styles().title}>Your next workout day</Text>
+          <View style={styles().workoutDay}>
+            <Text style={styles().dayDate}>{"MON" + "\n" + 23}</Text>
+            <View>
+              {exerciseItems?.map((item) => (
+                <ExerciseItem
+                  key={item.id}
+                  name={item.name}
+                  weights={item.weights}
+                  sets={item.sets}
+                  reps={item.reps}
+                />
+              ))}
+            </View>
           </View>
         </View>
-      </View>
+      ) : (
+        <View style={styles().container}>
+          <Text>No workout</Text>
+        </View>
+      )}
+
       <View
         style={{
           marginTop: 16,
