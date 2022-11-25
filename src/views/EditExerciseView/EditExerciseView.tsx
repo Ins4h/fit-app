@@ -104,7 +104,7 @@ const EditExerciseView: React.FC<EditExerciseViewProp> = ({
         />
         <FitInput
           style={styles().spacing}
-          label="Weights"
+          label="Weights [kg]"
           keyboardType="numeric"
           mode="outlined"
           onChangeText={(text) => setWeights(text.replace(/[^0-9]/g, ""))}
@@ -128,7 +128,7 @@ const EditExerciseView: React.FC<EditExerciseViewProp> = ({
         />
         <FitInput
           style={styles().spacing}
-          label="Break"
+          label="Break [s]"
           keyboardType="numeric"
           mode="outlined"
           onChangeText={(text) => setBreaks(text.replace(/[^0-9]/g, ""))}
@@ -171,7 +171,7 @@ const styles = (background?) =>
     buttonWrapper: {
       flexDirection: "row",
       justifyContent: "space-between",
-      marginTop: 50,
+      marginTop: 32,
     },
 
     addButton: {

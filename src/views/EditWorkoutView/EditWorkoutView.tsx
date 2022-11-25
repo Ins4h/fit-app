@@ -27,6 +27,12 @@ import type {
   WorkoutItemProp,
   ExerciseItemProp,
 } from "../../../types";
+import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
+import { faSignature } from '@fortawesome/free-solid-svg-icons/faSignature'
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons/faDumbbell'
+import { faChildReaching } from '@fortawesome/free-solid-svg-icons/faChildReaching'
+import { faRepeat } from '@fortawesome/free-solid-svg-icons/faRepeat'
+import { faStopwatch } from '@fortawesome/free-solid-svg-icons/faStopwatch'
 
 interface EditWorkoutViewProp {
   theme: ThemeTypes;
@@ -132,7 +138,10 @@ const EditWorkoutView: React.FC<EditWorkoutViewProp> = ({
   };
 
   return (
-    <ScrollView>
+    <ScrollView
+      style={{ flex: 1 }}
+      contentContainerStyle={{ flexGrow: 1 }}
+    >
       <View style={styles(background).container}>
         <FitDropDown
           label={workoutItem?.day !== "" ? workoutItem?.day : "Select day"}
@@ -148,7 +157,7 @@ const EditWorkoutView: React.FC<EditWorkoutViewProp> = ({
         />
         <View style={{ height: 16 }} />
         <FitInput
-          label="Break beetween exercises"
+          label="Break beetween exercises [s]"
           keyboardType="numeric"
           onChangeText={(text) => setBreaks(text.replace(/[^0-9]/g, ""))}
           value={breaks}
@@ -181,33 +190,49 @@ const EditWorkoutView: React.FC<EditWorkoutViewProp> = ({
           </FitButton>
         </View>
         <View style={styles().listDescription}>
-          <Text style={styles().listDescriptionName}>Name</Text>
-          <Text style={styles().listDescriptionItem}>Weights</Text>
-          <Text style={styles().listDescriptionItem}>Sets</Text>
-          <Text style={styles().listDescriptionItem}>Reps</Text>
-          <Text style={styles().listDescriptionItem}>Breaks</Text>
+          <View style={styles().listDescriptionName}>
+            <FontAwesomeIcon icon={faSignature} color="white" size={24} />
+          </View>
+          <View style={styles().listDescriptionItem}>
+            <FontAwesomeIcon icon={faDumbbell} color="white" size={24} style={{ flex: 1 }} />
+          </View>
+          <View style={styles().listDescriptionItem}>
+            <FontAwesomeIcon icon={faRepeat} color="white" size={24} style={{ flex: 1 }} />
+          </View>
+          <View style={styles().listDescriptionItem}>
+            <FontAwesomeIcon icon={faChildReaching} color="white" size={24} style={{ flex: 1 }} />
+          </View>
+          <View style={styles().listDescriptionItem}>
+            <FontAwesomeIcon icon={faStopwatch} color="white" size={24} style={{ flex: 1 }} />
+          </View>
         </View>
-        {workoutItem?.exercises.map((item) => (
-          <TouchableOpacity
-            key={item.id as Key}
-            onPress={() =>
-              navigation.navigate("EditExercise", {
-                exerciseItemId: item.id,
-                workoutItemId: route.params.workoutItemId,
-              })
-            }
-          >
-            <ExerciseItem
-              name={item.name}
-              weights={item.weights}
-              sets={item.sets}
-              reps={item.reps}
-              breaks={item.breaks}
-            />
-          </TouchableOpacity>
-        ))}
+        {workoutItem?.exercises.length === 0 ? (
+          <Text style={{ marginTop: 16, width: "100%", textAlign: "center" }}>
+            No exercises for now
+          </Text>
+        ) : (
+          workoutItem?.exercises.map((item) => (
+            <TouchableOpacity
+              key={item.id as Key}
+              onPress={() =>
+                navigation.navigate("EditExercise", {
+                  exerciseItemId: item.id,
+                  workoutItemId: route.params.workoutItemId,
+                })
+              }
+            >
+              <ExerciseItem
+                name={item.name}
+                weights={item.weights}
+                sets={item.sets}
+                reps={item.reps}
+                breaks={item.breaks}
+              />
+            </TouchableOpacity>
+          ))
+        )}
         <FitButton
-          style={{ marginTop: 16 }}
+          style={{ marginTop: 32 }}
           size={"large"}
           onPress={removeWorkout}
         >
@@ -243,11 +268,11 @@ const styles = (background?) =>
     },
     listDescriptionName: {
       flex: 2,
-      textAlign: "center",
+      alignItems: "center",
     },
     listDescriptionItem: {
       flex: 1,
-      textAlign: "center",
+      alignItems: "center",
     },
   });
 

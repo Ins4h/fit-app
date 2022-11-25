@@ -43,15 +43,13 @@ const styles = (background) =>
       alignItems: "center",
       backgroundColor: background,
     },
-
     container: {
       flex: 1,
       justifyContent: "space-between",
       width: "82%",
     },
-
     signUpText: {
-      fontSize: 10,
+      fontSize: 12,
     },
   });
 

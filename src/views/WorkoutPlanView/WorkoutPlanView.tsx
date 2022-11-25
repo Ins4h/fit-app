@@ -121,15 +121,14 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
                 style={{
                   backgroundColor: "green",
                   width: "93%",
-                  height: 120,
                   alignSelf: "center",
                   borderRadius: 12,
                   justifyContent: "center",
                   alignItems: "center",
                 }}
               >
-                <Text>{workoutPlanItem.name}</Text>
-                <Text>{workoutPlanItem.description}</Text>
+                <Text style={[styles().workoutPlanTitle]}>{workoutPlanItem.name}</Text>
+                <Text style={[styles().workoutPlanDescription]}>{workoutPlanItem.description}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -154,7 +153,7 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
               ))}
           </View>
           <FitButton
-            style={styles().addButton}
+            style={[styles().addDayButton]}
             size="medium"
             onPress={() => {
               // const workoutMock: WorkoutItemProp = {
@@ -176,7 +175,7 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
             ADD DAY
           </FitButton>
           <FitButton
-            style={styles().addButton}
+            style={[styles().startWorkoutButton]}
             size="medium"
             onPress={() => {
               navigation.navigate("EditWorkout");
@@ -196,7 +195,12 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
             width: "93%",
           }}
         >
-          <FitButton onPress={onWorkoutPlanAdd}>Add your workout</FitButton>
+          <FitButton
+            style={[styles().addWorkoutButton]}
+            onPress={onWorkoutPlanAdd}
+          >
+            Add your workout
+          </FitButton>
         </ScrollView>
       </View>
     );
@@ -224,12 +228,28 @@ const styles = (background?) =>
     title: {
       fontSize: 24,
     },
-    addButton: {
+    startWorkoutButton: {
       alignSelf: "center",
       marginVertical: 16,
     },
+    addDayButton: {
+      alignSelf: "center",
+      marginTop: 16,
+    },
     spacing: {
       marginTop: 16,
+    },
+    addWorkoutButton: {
+      marginTop: 16,
+    },
+    workoutPlanTitle: {
+      fontWeight: "bold",
+      marginVertical: 16,
+      fontSize: 20,
+    },
+    workoutPlanDescription: {
+      marginBottom: 16,
+      fontSize: 16,
     },
   });
 
