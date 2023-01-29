@@ -27,12 +27,12 @@ import type {
   WorkoutItemProp,
   ExerciseItemProp,
 } from "../../../types";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome'
-import { faSignature } from '@fortawesome/free-solid-svg-icons/faSignature'
-import { faDumbbell } from '@fortawesome/free-solid-svg-icons/faDumbbell'
-import { faChildReaching } from '@fortawesome/free-solid-svg-icons/faChildReaching'
-import { faRepeat } from '@fortawesome/free-solid-svg-icons/faRepeat'
-import { faStopwatch } from '@fortawesome/free-solid-svg-icons/faStopwatch'
+import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+import { faSignature } from "@fortawesome/free-solid-svg-icons/faSignature";
+import { faDumbbell } from "@fortawesome/free-solid-svg-icons/faDumbbell";
+import { faChildReaching } from "@fortawesome/free-solid-svg-icons/faChildReaching";
+import { faRepeat } from "@fortawesome/free-solid-svg-icons/faRepeat";
+import { faStopwatch } from "@fortawesome/free-solid-svg-icons/faStopwatch";
 
 interface EditWorkoutViewProp {
   theme: ThemeTypes;
@@ -51,6 +51,7 @@ const EditWorkoutView: React.FC<EditWorkoutViewProp> = ({
   const workoutPlanItem: WorkoutPlanProp | null = useAppSelector(
     (state) => state.plan
   );
+
   const workoutItemId = route.params?.workoutItemId;
 
   const workoutItem = workoutPlanItem.workoutItem.find(
@@ -138,10 +139,7 @@ const EditWorkoutView: React.FC<EditWorkoutViewProp> = ({
   };
 
   return (
-    <ScrollView
-      style={{ flex: 1 }}
-      contentContainerStyle={{ flexGrow: 1 }}
-    >
+    <ScrollView style={{ flex: 1 }} contentContainerStyle={{ flexGrow: 1 }}>
       <View style={styles(background).container}>
         <FitDropDown
           label={workoutItem?.day !== "" ? workoutItem?.day : "Select day"}
@@ -194,16 +192,36 @@ const EditWorkoutView: React.FC<EditWorkoutViewProp> = ({
             <FontAwesomeIcon icon={faSignature} color="white" size={24} />
           </View>
           <View style={styles().listDescriptionItem}>
-            <FontAwesomeIcon icon={faDumbbell} color="white" size={24} style={{ flex: 1 }} />
+            <FontAwesomeIcon
+              icon={faDumbbell}
+              color="white"
+              size={24}
+              style={{ flex: 1 }}
+            />
           </View>
           <View style={styles().listDescriptionItem}>
-            <FontAwesomeIcon icon={faRepeat} color="white" size={24} style={{ flex: 1 }} />
+            <FontAwesomeIcon
+              icon={faRepeat}
+              color="white"
+              size={24}
+              style={{ flex: 1 }}
+            />
           </View>
           <View style={styles().listDescriptionItem}>
-            <FontAwesomeIcon icon={faChildReaching} color="white" size={24} style={{ flex: 1 }} />
+            <FontAwesomeIcon
+              icon={faChildReaching}
+              color="white"
+              size={24}
+              style={{ flex: 1 }}
+            />
           </View>
           <View style={styles().listDescriptionItem}>
-            <FontAwesomeIcon icon={faStopwatch} color="white" size={24} style={{ flex: 1 }} />
+            <FontAwesomeIcon
+              icon={faStopwatch}
+              color="white"
+              size={24}
+              style={{ flex: 1 }}
+            />
           </View>
         </View>
         {workoutItem?.exercises.length === 0 ? (

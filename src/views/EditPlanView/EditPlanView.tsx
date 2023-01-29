@@ -10,6 +10,7 @@ import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { ThemeTypes } from "../../theme/theme";
 import type { WorkoutPlanStackParams } from "../WorkoutPlanView/WorkoutPlanStack";
 import type { WorkoutPlanProp } from "../../../types";
+import uuid from "react-native-uuid";
 
 interface EditPlanProp {
   theme: ThemeTypes;
@@ -25,11 +26,13 @@ const EditPlanView: React.FC<EditPlanProp> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<WorkoutPlanStackParams>>();
 
-  const workoutPlanId = route.params?.workoutPlanId;
-
   const workoutPlanItem: WorkoutPlanProp | null = useAppSelector(
     (state) => state.plan
   );
+
+  const workoutPlanId = workoutPlanItem?.id
+    ? workoutPlanItem.id
+    : uuid.v4().toString();
 
   const [title, setTitle] = useState<string>(workoutPlanItem?.name);
   const [description, setDescription] = useState<string>(

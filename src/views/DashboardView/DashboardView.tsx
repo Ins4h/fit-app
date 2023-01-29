@@ -30,9 +30,20 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
 
-  // useEffect(() => {
-  //   dispatch(initPlan(workoutPlanMock));
-  // }, []);
+  useEffect(() => {
+    const fetchWorkout = async () => {
+      const workoutData = await getData();
+      dispatch(initPlan(workoutData.workoutPlan));
+      return workoutData;
+    };
+    fetchWorkout();
+  }, []);
+
+  const getData = async () => {
+    const docRef = doc(db, "workoutPlan", user.uid);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  };
 
   const haveCurrentWorkout = false;
 
@@ -47,24 +58,6 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
       )
       .catch((error) => alert(error.message));
   };
-
-  // useEffect(() => {
-  //   const fetchWorkout = async () => {
-  //     const workoutData = await getData();
-  //     if (workoutData) {
-  //       dispatch(savePlan(workoutData.workoutDays))
-  //     }
-  //   };
-  //   fetchWorkout();
-  // }, []);
-
-  // const getData = async () => {
-  //   const docRef = doc(db, "workoutPlan", user.uid);
-  //   const docSnap = await getDoc(docRef);
-  //   return docSnap.data();
-  // };
-
-  // console.log(workoutPlan);
 
   return (
     <View

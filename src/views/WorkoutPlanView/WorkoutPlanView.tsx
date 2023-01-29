@@ -63,30 +63,30 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
   //   fetchWorkout();
   // }, []);
 
-  // const getData = async () => {
-  //   const docRef = doc(db, "workoutPlan", user.uid);
-  //   const docSnap = await getDoc(docRef);
-  //   return docSnap.data();
-  // };
+  const getData = async () => {
+    const docRef = doc(db, "workoutPlan", user.uid);
+    const docSnap = await getDoc(docRef);
+    return docSnap.data();
+  };
 
-  // const saveData = async () => {
-  //   try {
-  //     const dataRef = doc(db, "workoutPlan", user.uid);
-  //     const dataSnap = await getDoc(dataRef);
+  const saveData = async () => {
+    try {
+      const dataRef = doc(db, "workoutPlan", user.uid);
+      const dataSnap = await getDoc(dataRef);
 
-  //     if (dataSnap.exists()) {
-  //       await updateDoc(dataRef, {
-  //         workoutDays: workoutDays,
-  //       });
-  //     } else {
-  //       await setDoc(dataRef, {
-  //         workoutDays: workoutDays,
-  //       });
-  //     }
-  //   } catch (error) {
-  //     console.error("Error writing new data to Firebase Database", error);
-  //   }
-  // };
+      if (dataSnap.exists()) {
+        await updateDoc(dataRef, {
+          workoutPlan: workoutPlanItem,
+        });
+      } else {
+        await setDoc(dataRef, {
+          workoutPlan: workoutPlanItem,
+        });
+      }
+    } catch (error) {
+      console.error("Error writing new data to Firebase Database", error);
+    }
+  };
 
   const onWorkoutPlanAdd = () => {
     navigation.navigate("EditPlan", {
@@ -127,8 +127,12 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
                   alignItems: "center",
                 }}
               >
-                <Text style={[styles().workoutPlanTitle]}>{workoutPlanItem.name}</Text>
-                <Text style={[styles().workoutPlanDescription]}>{workoutPlanItem.description}</Text>
+                <Text style={[styles().workoutPlanTitle]}>
+                  {workoutPlanItem.name}
+                </Text>
+                <Text style={[styles().workoutPlanDescription]}>
+                  {workoutPlanItem.description}
+                </Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -178,10 +182,10 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
             style={[styles().startWorkoutButton]}
             size="medium"
             onPress={() => {
-              navigation.navigate("EditWorkout");
+              saveData();
             }}
           >
-            Start workout
+            Save workout
           </FitButton>
         </ScrollView>
       </View>
