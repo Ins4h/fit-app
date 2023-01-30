@@ -46,29 +46,6 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
 
   const haveCurrentWorkout = workoutPlanItem ? true : false;
 
-  const dispatch = useAppDispatch();
-  // useEffect(() => {
-  //   if (route.params) {
-  //     setWorkoutDays([...workoutDays, route.params.workoutDay]);
-  //   }
-  // }, [route]);
-
-  // useEffect(() => {
-  //   const fetchWorkout = async () => {
-  //     const workoutData = await getData();
-  //     if (workoutData) {
-  //       setWorkoutDays(workoutData.workoutDays);
-  //     }
-  //   };
-  //   fetchWorkout();
-  // }, []);
-
-  const getData = async () => {
-    const docRef = doc(db, "workoutPlan", user.uid);
-    const docSnap = await getDoc(docRef);
-    return docSnap.data();
-  };
-
   const saveData = async () => {
     try {
       const dataRef = doc(db, "workoutPlan", user.uid);
@@ -160,17 +137,6 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
             style={[styles().addDayButton]}
             size="medium"
             onPress={() => {
-              // const workoutMock: WorkoutItemProp = {
-              //   id: uuid.v4().toString(),
-              //   name: "",
-              //   description: "",
-              //   day: "",
-              //   time: "",
-              //   breaksBetweenExercises: 0,
-              //   exercises: [],
-              // };
-
-              // dispatch(saveWorkoutItem(workoutMock));
               navigation.navigate("EditWorkout", {
                 workoutItemId: uuid.v4().toString(),
               });

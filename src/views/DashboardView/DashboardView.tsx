@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
@@ -16,7 +16,71 @@ import type {
   WorkoutItemProp,
   WorkoutPlanProp,
 } from "../../../types";
-import type { WorkoutPlanStackParams } from "../WorkoutPlanView/WorkoutPlanStack";
+
+const dayMap = [
+  {
+    dayKey: 0,
+    day: "Sunday",
+    shortName: "Sun",
+  },
+  {
+    dayKey: 1,
+    day: "Monday",
+    shortName: "Mon",
+  },
+  {
+    dayKey: 2,
+    day: "Tuesday",
+    shortName: "Tue",
+  },
+  {
+    dayKey: 3,
+    day: "Wednsday",
+    shortname: "Wed",
+  },
+  {
+    dataKey: 4,
+    day: "Thursday",
+    shortName: "Thu",
+  },
+  {
+    dataKey: 5,
+    day: "Friday",
+    shortName: "Fri",
+  },
+  {
+    dataKey: 6,
+    day: "Saturday",
+    shortName: "Sat",
+  },
+];
+
+function findNextDate(days) {
+  var today = new Date();
+  var currentDay = today.getDay();
+  var daysOfWeek = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  for (var i = currentDay; i < daysOfWeek.length; i++) {
+    if (days.includes(daysOfWeek[i])) {
+      today.setDate(today.getDate() + (i - currentDay));
+      return today;
+    }
+  }
+  for (var i = 0; i < currentDay; i++) {
+    if (days.includes(daysOfWeek[i])) {
+      today.setDate(today.getDate() + (7 - currentDay + i));
+      return today;
+    }
+  }
+  return null;
+}
 
 const db = getFirestore(firebaseApp);
 
@@ -30,11 +94,14 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
 
+  const workoutPlan: WorkoutPlanProp | null = useAppSelector(
+    (state) => state.plan
+  );
+
   useEffect(() => {
     const fetchWorkout = async () => {
       const workoutData = await getData();
       dispatch(initPlan(workoutData.workoutPlan));
-      return workoutData;
     };
     fetchWorkout();
   }, []);
@@ -45,7 +112,23 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
     return docSnap.data();
   };
 
-  const haveCurrentWorkout = false;
+  const workDays = workoutPlan?.workoutItem.map((item) => {
+    const found = dayMap.find((i) => i.day === item.day).day;
+    return found;
+  });
+
+  let nextWorkingDay = null;
+  let nextDay = null;
+  let exerciseItems = null;
+  if (workDays) {
+    nextWorkingDay = findNextDate(workDays);
+    nextDay = dayMap.find((item) => item.dataKey === nextWorkingDay?.getDay());
+    exerciseItems = workoutPlan?.workoutItem.find(
+      (item) => item.day === nextDay?.day
+    ).exercises;
+  }
+
+  const haveCurrentWorkout = !!workoutPlan;
 
   const handleSignOut = () => {
     auth
@@ -71,7 +154,11 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
         <View style={styles().container}>
           <Text style={styles().title}>Your next workout day</Text>
           <View style={styles().workoutDay}>
-            <Text style={styles().dayDate}>{"MON" + "\n" + 23}</Text>
+            <Text style={styles().dayDate}>
+              {nextDay?.shortName.toUpperCase() +
+                "\n" +
+                nextWorkingDay?.getDate()}
+            </Text>
             <View>
               {exerciseItems?.map((item) => (
                 <ExerciseItem
