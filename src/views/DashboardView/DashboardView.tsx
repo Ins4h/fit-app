@@ -112,7 +112,7 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
     return docSnap.data();
   };
 
-  const workDays = workoutPlan?.workoutItem.map((item) => {
+  const workDays = workoutPlan?.workoutItem?.map((item) => {
     const found = dayMap.find((i) => i.day === item.day).day;
     return found;
   });
@@ -123,7 +123,7 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
   if (workDays) {
     nextWorkingDay = findNextDate(workDays);
     nextDay = dayMap.find((item) => item.dataKey === nextWorkingDay?.getDay());
-    exerciseItems = workoutPlan?.workoutItem.find(
+    exerciseItems = workoutPlan?.workoutItem?.find(
       (item) => item.day === nextDay?.day
     ).exercises;
   }
