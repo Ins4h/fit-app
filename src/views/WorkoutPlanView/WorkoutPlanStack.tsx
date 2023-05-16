@@ -10,6 +10,7 @@ import EditExerciseView from "../EditExerciseView/EditExerciseView";
 import ListOfExercisesView from "../ListOfExercisesView/ListOfExercisesView";
 import type { NativeStackNavigationOptions } from "@react-navigation/native-stack";
 import type { HeaderProps } from "../../components/Header";
+import StartWorkoutView from "../StartWorkoutView/StartWorkoutView";
 
 export type WorkoutPlanStackParams = {
   WorkoutPlan;
@@ -18,6 +19,7 @@ export type WorkoutPlanStackParams = {
   EditExercise;
   ListOfExercises;
   EditPlan;
+  StartWorkout;
 };
 
 const Stack = createNativeStackNavigator<WorkoutPlanStackParams>();
@@ -71,6 +73,13 @@ const WorkoutPlanStack = () => {
           component={ListOfExercisesView}
           options={{
             title: "List Of Exercises",
+          }}
+        />
+        <Stack.Screen
+          name="StartWorkout"
+          component={StartWorkoutView}
+          options={{
+            title: "Workout",
           }}
         />
       </Stack.Navigator>

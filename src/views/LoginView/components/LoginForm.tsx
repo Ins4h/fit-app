@@ -1,4 +1,4 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, GestureResponderEvent } from "react-native";
 import { Formik } from "formik";
 import { useNavigation, StackActions } from "@react-navigation/native";
 import { auth } from "../../../../firebase.config";
@@ -54,7 +54,10 @@ const LoginForm: React.FC = () => {
             value={values.password}
             secureTextEntry
           />
-          <FitButton style={{ marginTop: 32 }} onPress={handleSubmit}>
+          <FitButton
+            style={{ marginTop: 32 }}
+            onPress={(e: any) => handleSubmit(e)}
+          >
             Log in
           </FitButton>
         </View>

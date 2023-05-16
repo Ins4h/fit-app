@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Key } from "react";
+import React, { Key } from "react";
 import {
   View,
   Text,
@@ -6,10 +6,9 @@ import {
   ScrollView,
   TouchableOpacity,
 } from "react-native";
-import { useNavigation, useRoute, RouteProp } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { withTheme } from "react-native-paper";
 import FitButton from "../../components/FitButton";
-import FitInput from "../../components/FitInput";
 import WorkoutDay from "../../components/WorkoutDay";
 import uuid from "react-native-uuid";
 import firebaseApp, { auth } from "../../../firebase.config";
@@ -24,9 +23,7 @@ import { useAppSelector } from "../../hooks/reduxHooks";
 import type { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import type { WorkoutPlanStackParams } from "./WorkoutPlanStack";
 import type { ThemeTypes } from "../../theme/theme";
-import type { WorkoutItemProp, WorkoutPlanProp } from "../../../types";
-import { saveWorkoutItem } from "../../feature/workoutPlan/workoutPlanSlice";
-import { useAppDispatch } from "../../hooks/reduxHooks";
+import type { WorkoutPlanProp } from "../../../types";
 
 const db = getFirestore(firebaseApp);
 
@@ -37,7 +34,6 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<WorkoutPlanStackParams>>();
-  const route = useRoute<RouteProp<WorkoutPlanStackParams>>();
   const user = auth.currentUser;
 
   const workoutPlanItem: WorkoutPlanProp | null = useAppSelector(
@@ -66,9 +62,7 @@ const WorkoutPlanView: React.FC<{ theme: ThemeTypes }> = ({
   };
 
   const onWorkoutPlanAdd = () => {
-    navigation.navigate("EditPlan", {
-      workoutItemId: uuid.v4().toString(),
-    });
+    navigation.navigate("EditPlan");
   };
 
   if (haveCurrentWorkout) {

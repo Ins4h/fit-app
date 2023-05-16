@@ -24,7 +24,7 @@ const FitButton: React.FC<FitButtonProps> = (props) => {
       colors={colors.primaryGreen}
       style={[styles(size, roundness).container, style]}
     >
-      <Button color="#fff" {...rest}>
+      <Button textColor="#fff" {...rest}>
         <Text style={styles().text}>{children || "button"}</Text>
       </Button>
     </LinearGradient>

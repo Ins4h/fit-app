@@ -6,7 +6,7 @@ import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 type BottomTabNavigatorParams = {
   Dashboard;
   Workout;
-}
+};
 
 const Tab = createMaterialBottomTabNavigator<BottomTabNavigatorParams>();
 
@@ -16,6 +16,7 @@ const BottomTabNavigator: React.FC = () => {
       initialRouteName="Dashboard"
       barStyle={{ backgroundColor: "#454545" }}
       activeColor="#4CAF50"
+      inactiveColor="white"
     >
       <Tab.Screen
         name="Dashboard"

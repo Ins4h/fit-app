@@ -21,7 +21,6 @@ const EditPlanView: React.FC<EditPlanProp> = ({
   theme: {
     colors: { background },
   },
-  route,
 }) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<WorkoutPlanStackParams>>();

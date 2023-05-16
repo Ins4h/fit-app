@@ -113,22 +113,23 @@ const DashboardView: React.FC<{ theme: ThemeTypes }> = ({
   };
 
   const workDays = workoutPlan?.workoutItem?.map((item) => {
-    const found = dayMap.find((i) => i.day === item.day).day;
+    const found = dayMap.find((i) => i.day === item?.day)?.day;
     return found;
   });
 
   let nextWorkingDay = null;
   let nextDay = null;
   let exerciseItems = null;
-  if (workDays) {
+
+  if (workDays?.length > 0) {
     nextWorkingDay = findNextDate(workDays);
-    nextDay = dayMap.find((item) => item.dataKey === nextWorkingDay?.getDay());
+    nextDay = dayMap.find((item) => item.dayKey === nextWorkingDay?.getDay());
     exerciseItems = workoutPlan?.workoutItem?.find(
       (item) => item.day === nextDay?.day
-    ).exercises;
+    )?.exercises;
   }
-
-  const haveCurrentWorkout = !!workoutPlan;
+  const haveCurrentWorkout =
+    !!workoutPlan && workoutPlan.workoutItem.length > 0;
 
   const handleSignOut = () => {
     auth

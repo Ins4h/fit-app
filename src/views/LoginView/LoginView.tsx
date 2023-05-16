@@ -36,7 +36,7 @@ const LoginView = ({
   );
 };
 
-const styles = (background) =>
+const styles = (background?) =>
   StyleSheet.create({
     wrapper: {
       flex: 1,

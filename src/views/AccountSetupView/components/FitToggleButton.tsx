@@ -26,7 +26,7 @@ const FitToggleButton: React.FC<{ theme: ThemeTypes }> = ({
         style={styles().button}
       >
         <ToggleButton
-          color="white"
+          iconColor="white"
           icon="gender-female"
           size={44}
           value="female"
@@ -38,7 +38,7 @@ const FitToggleButton: React.FC<{ theme: ThemeTypes }> = ({
         style={styles().button}
       >
         <ToggleButton
-          color="white"
+          iconColor="white"
           icon="gender-male"
           value="male"
           size={40}

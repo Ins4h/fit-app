@@ -263,6 +263,17 @@ const EditWorkoutView: React.FC<EditWorkoutViewProp> = ({
         >
           save workout
         </FitButton>
+        <FitButton
+          style={{ marginTop: 16 }}
+          size="large"
+          onPress={() => {
+            navigation.navigate("StartWorkout", {
+              workoutItemId,
+            });
+          }}
+        >
+          Start workout
+        </FitButton>
       </View>
     </ScrollView>
   );
